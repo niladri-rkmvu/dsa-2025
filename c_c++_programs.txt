@@ -686,46 +686,64 @@ Inside main : after swap
 a = 20
 b = 10
 
-
-/*------------ ------------ ------------ */
-//  7a. Array as parameter
-/*------------ ------------ ------------ */
-
-# include <iostream>
-
+/******************************************************************************
+7a. Array as parameter
+*******************************************************************************/
+#include <iostream>
 using namespace std;
 
-// void fun (int *x, int size) : also works
-// int x[] : only array will work, int *x = any object will work
-void fun (int x[], int size) 
-{  
-    int i;
+void fun(int A[], int size)
+{
+    /*
+        Here A is a pointer to an Array
+        sizeof(A) will not work
+        nor for-each loop
+    */
+   cout << "fun : A is = " << A << endl;
+    
+   for(int i=0; i < size; i++)
+   {
+       cout << A[i] << endl;
+   }
 
-    for (i=0; i < size; i++)
-    {
-        cout << "x[" << i << "] = " << x[i] << " | @ address = " << &x[i] << endl;
-    }
+   // if i change A[0] = 15. it will change the original array
+   A[0] = 15;
 }
 
 int main()
 {
-    int A[5] = {2,3,4,5,6};
-    cout << "Inside main : address of array A using : &A[0] = " << &A[0] << endl;
-    cout << "Inside main : address of array A using : A = " << A << endl;
-    cout << "Inside main : address of array A using : &A = " << &A << endl << endl;
-    fun (A,5);
+    int A[ ] = {2,4,6,8,10};
+    int size = sizeof(A) / sizeof(A[0]);
+    cout << "main : size of Array = " << size << endl;
+    cout << "main : address of array A using : &A[0] = " << &A[0] << endl;
+    cout << "main : address of array A using : A = " << A << endl;
+    cout << "main : address of array A using : &A = " << &A << endl << endl;
+    fun(A,size);
+
+    cout << "array values are after fun call. Expecting A[0] = 15" << endl;
+
+    for(int a:A)
+        cout << a << endl;
     return 0;
 }
 
-Inside main : address of array A using : &A[0] = 0x16b4a7230
-Inside main : address of array A using : A = 0x16b4a7230
-Inside main : address of array A using : &A = 0x16b4a7230
+main : size of Array = 5
+main : address of array A using : &A[0] = 0x7ffeb8ada6b0
+main : address of array A using : A = 0x7ffeb8ada6b0
+main : address of array A using : &A = 0x7ffeb8ada6b0
 
-x[0] = 2 | @ address = 0x16b4a7230
-x[1] = 3 | @ address = 0x16b4a7234
-x[2] = 4 | @ address = 0x16b4a7238
-x[3] = 5 | @ address = 0x16b4a723c
-x[4] = 6 | @ address = 0x16b4a7240
+fun : A is = 0x7ffeb8ada6b0
+2
+4
+6
+8
+10
+array values are after fun call. Expecting A[0] = 15
+15
+4
+6
+8
+10
 
 /*------------ ------------ ------------ */
 //  7b. Function returning array
@@ -801,20 +819,3 @@ A[2] = 30
 A[3] = 40
 A[4] = 50
 --- main ends ---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

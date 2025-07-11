@@ -12,14 +12,14 @@ using namespace std
 
 int main()
 {
-	int A[5];
-	int B[5] = {1,2,3,4,5};
-	int C[10] = {2,4,6};
-	int D[5] = {0}; // rest of the elements should be filled with 0
-	int E[] = {1,2,3,4,5,6};
-	int F[10] = {[0]=1,[5]=10}; // designated initialization
+    int A[5];
+    int B[5] = {1,2,3,4,5};
+    int C[10] = {2,4,6};
+    int D[5] = {0}; // rest of the elements should be filled with 0
+    int E[] = {1,2,3,4,5,6};
+    int F[10] = {[0]=1,[5]=10}; // designated initialization
 
-	return 0;
+    return 0;
 }
 
 
@@ -33,16 +33,16 @@ using namespace std;
 
 int main()
 {
-	int A[5];
-	int i;
+    int A[5];
+    int i;
 
-	for (i=0; i<5; i++)
-	{
-		// printf("%p \n", &A[i]); prints hexadecimal addresses
-		printf("%lu\n", (uintptr_t)&A[i]);
-	}
+    for (i=0; i<5; i++)
+    {
+        // printf("%p \n", &A[i]); prints hexadecimal addresses
+        printf("%lu\n", (uintptr_t)&A[i]);
+    }
 
-	return 0;
+    return 0;
 }
 
 140735579401376
@@ -167,15 +167,15 @@ using namespace std;
 
 int main()
 {
-	int size = 5;
+    int size = 5;
     int *p = new int[size];
     int val = 10;
 
     // Assign p array in heap
     for (int i=0; i<size; i++)
     {
-    	p[i] = val;
-    	val = val + 10;
+        p[i] = val;
+        val = val + 10;
     }
     
     cout << "Address of p = " << p << endl;
@@ -183,7 +183,7 @@ int main()
     
     // Display p
     for (int i=0; i<size; i++)
-    	cout << "p[" << i << "] = " << p[i] << endl;
+        cout << "p[" << i << "] = " << p[i] << endl;
 
     cout << " ------------- " << endl;
 
@@ -197,12 +197,12 @@ int main()
 
     /*
     for (int i=0; i<size; i++)
-    	q[i] = p[i];
+        q[i] = p[i];
     */
 
     // Display q
     for (int i=0; i<size; i++)
-    	cout << "q[" << i << "] = " << p[i] << endl;
+        cout << "q[" << i << "] = " << p[i] << endl;
 
     // free the allocated memory from heap
     delete[] p;
@@ -836,3 +836,170 @@ int main() {
     return 0;
 }
 
+// -----------------------------------------------------------
+// 1.a Linear Search
+// -----------------------------------------------------------
+
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+struct Array
+{
+    int A[10];
+    int size;
+    int length;
+};
+
+void Display(struct Array arr)
+{
+    int i;
+    printf("\nElements are\n");
+
+    for(i=0;i<arr.length;i++)
+        printf("%d ",arr.A[i]);
+}
+
+// best case = O(1), worst case = O(n)
+int LinearSearch(struct Array arr,int key)
+{
+    for (int i=0; i < arr.length; i++)
+    {
+        if (key==arr.A[i])
+            return i;
+    }
+    return -1;
+}
+
+int main()
+{
+    struct Array arr = {{2,3,4,5,6},10,5};
+    printf("%d\n",LinearSearch(arr,4));
+    printf("%d\n",LinearSearch(arr,6));
+    printf("%d\n",LinearSearch(arr,15));
+    Display(arr);
+    return 0;
+}
+
+/****************************  *************************** ***/
+
+// -----------------------------------------------------------
+// 1.b Linear Search
+// Improvements
+//      1. Transposition
+//      2. Move to Head
+// (Pointer-based implementation)
+// -----------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+// -----------------------------------------------------------
+// Array ADT Definition
+// -----------------------------------------------------------
+struct Array {
+    int A[10];     // Static fixed-size array
+    int size;      // Total capacity
+    int length;    // Current number of elements
+};
+
+// -----------------------------------------------------------
+// Swap Utility (used in search optimizations)
+// -----------------------------------------------------------
+void swap(int* x, int* y) {
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+// -----------------------------------------------------------
+// Display Function — shows array contents
+// -----------------------------------------------------------
+void Display(Array* arr) {
+    cout << "Array elements → ";
+    for (int i = 0; i < arr->length; i++)
+        cout << arr->A[i] << " ";
+    cout << endl;
+}
+
+// -----------------------------------------------------------
+// 1. Transposition (Pass by pointer)
+// -----------------------------------------------------------
+int LinearSearch_T(Array* arr, int key) {
+    for (int i = 0; i < arr->length; i++) {
+        if (arr->A[i] == key) {
+            if (i > 0) {
+                swap(&arr->A[i], &arr->A[i - 1]);
+                cout << "[Transposition] Element " << key << " moved from index " << i << " to " << i - 1 << endl;
+                return i - 1;
+            }
+            return i;
+        }
+    }
+    cout << "[Transposition] Element " << key << " not found\n";
+    return -1;
+}
+
+// -----------------------------------------------------------
+// 2. Move to Head (Pass by pointer)
+// -----------------------------------------------------------
+int LinearSearch_MVH(Array* arr, int key) {
+    for (int i = 0; i < arr->length; i++) {
+        if (arr->A[i] == key) {
+            swap(&arr->A[i], &arr->A[0]);
+            cout << "[Move-to-Head] Element " << key << " moved to front\n";
+            return 0;
+        }
+    }
+    cout << "[Move-to-Head] Element " << key << " not found\n";
+    return -1;
+}
+
+// -----------------------------------------------------------
+// Main — Demonstrates both techniques on sample array
+// -----------------------------------------------------------
+int main() {
+    Array arr = {{2, 3, 4, 5, 6}, 10, 5};
+
+    cout << "Initial ";
+    Display(&arr);
+
+    int index_T = LinearSearch_T(&arr, 4);
+    cout << "[Transposition] Returned index: " << index_T << endl;
+    Display(&arr);
+
+    int index_MVH = LinearSearch_MVH(&arr, 4);
+    cout << "[Move-to-Head] Returned index: " << index_MVH << endl;
+    Display(&arr);
+
+    return 0;
+}
+
+Initial Array elements → 2 3 4 5 6 
+[Transposition] Element 4 moved from index 2 to 1
+[Transposition] Returned index: 1
+Array elements → 2 4 3 5 6 
+[Move-to-Head] Element 4 moved to front
+[Move-to-Head] Returned index: 0
+Array elements → 4 2 3 5 6 
+
+
+/****************************  *************************** ***/
+
+
+
+
+
+/****************************  *************************** ***/
+
+
+
+
+
+/****************************  *************************** ***/
+
+
+
+
+
+/****************************  *************************** ***/

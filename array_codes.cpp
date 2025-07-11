@@ -1,7 +1,6 @@
 /*---------------------------------------------------------------
-		   						Array codes
+Array codes
 ----------------------------------------------------------------*/
-
 
 /* -------------------------------
 1. Demo array | Show X Code
@@ -635,43 +634,205 @@ CMO Address            = 1146
 
 
 // -----------------------------------------------------------
-// 9. Array ADT 
-// Description: Demonstrates a simple fixed-size Array structure 
-//              and displays its initialized elements.
+// 9.a Array ADT 
+// initialize and display
 // -----------------------------------------------------------
 
 #include <iostream>
 using namespace std;
 
-// Structure to represent a statically allocated array
-struct Array {
-    int A[10];     // Fixed-size internal array
-    int length;    // Logical number of elements present
+// Definition of the Array class
+class Array {
+
+// the private section is not available to the calling part = inside main
+private:
+    int* A;                   // Pointer to dynamically allocated array memory
+    int size;                 // Total capacity of the array
+    int length;               // Number of elements currently in the array
+
+public:
+    // Constructor to initialize the array with a specific size
+    Array(int size) {
+        this->size = size;    // Set the array size
+        A = new int[size];    // Allocate memory dynamically in heap
+    }
+
+    // Function to accept array elements from the user
+    void create() {
+        cout << "Enter number of elements: " << flush;
+        cin >> length;        // Get the number of elements to input
+
+        cout << "Enter the array elements: " << endl;
+        for (int i = 0; i < length; i++) {
+            cout << "Array element " << i << " = " << flush;
+            cin >> A[i];      // Input elements into array
+        }
+    }
+
+    // Function to display elements of the array
+    void display() {
+        cout << "Array elements: ";
+        for (int i = 0; i < length; i++) {
+            cout << A[i] << " ";  // Print each element
+        }
+        cout << endl;
+    }
+
+    // Destructor to release dynamically allocated memory
+    ~Array() {
+        delete[] A;           // Deallocate memory
+        cout << "Array destroyed" << endl;
+    }
 };
 
-// Function to display elements of the array
-void Display(struct Array arr)
-{
-    cout << "\nElements are:\n";
-    for (int i = 0; i < arr.length; i++) {
-        cout << "arr.A[" << i << "] = " << arr.A[i] << endl;
-    }
+// Main function to create and use an Array object
+int main() {
+    int arraySize;
+    cout << "Enter desired array size: " << flush;
+    cin >> arraySize;          // Read array size from user
+
+    Array myArray(arraySize);  // Create an Array object with user-defined size
+
+    myArray.create();          // Populate array elements
+    myArray.display();         // Display the elements
+
+    return 0;                  // Indicate successful completion
 }
 
-int main() {
-    // Initialize the array with 5 integers and set length to 5
-    struct Array arr = {{2, 3, 4, 5, 6}, 5};
+Enter desired array size: 10
+Enter number of elements: 5
+Enter the array elements: 
+Array element 0 = 10
+Array element 1 = 24
+Array element 2 = 80
+Array element 3 = 105
+Array element 4 = 78
+Array elements: 10 24 80 105 78 
+Array destroyed
 
-    // Display current contents of the array
-    Display(arr);
+
+// -----------------------------------------------------------
+// 9.b Array ADT 
+// Insert(int index, int element)
+// Delete(int index)
+// Search(int element)
+// Get(int index)
+// Set(int index, int element)
+// -----------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+class Array {
+private:
+    int* A;
+    int size;
+    int length;
+
+public:
+    // Constructor with initialization
+    Array(int size, int initialElements[], int initialLength) {
+        this->size = size;
+        this->length = initialLength;
+        A = new int[size];
+        for (int i = 0; i < initialLength; i++) {
+            A[i] = initialElements[i];
+        }
+    }
+
+    // Insert — Best O(1), Worst O(n)
+    void Insert(int index, int element) {
+        if (index < 0 || index > length || length >= size) {
+            cout << "[Insert] Failed: Invalid index or array full" << endl;
+            return;
+        }
+        // Shifting elements to the right
+        for (int i = length; i > index; i--) {
+            A[i] = A[i - 1];
+        }
+        A[index] = element;
+        length++;
+    }
+
+    // Delete — Best O(1), Worst O(n)
+    void Delete(int index) {
+        if (index < 0 || index >= length) {
+            cout << "[Delete] Failed: Invalid index" << endl;
+            return;
+        }
+        // Shifting elements to the left
+        for (int i = index; i < length - 1; i++) {
+            A[i] = A[i + 1];
+        }
+        length--;
+    }
+
+    // Search — Best O(1), Worst O(n)
+    int Search(int element) {
+        for (int i = 0; i < length; i++) {
+            if (A[i] == element) return i;
+        }
+        return -1;
+    }
+
+    // Get — O(1)
+    int Get(int index) {
+        if (index < 0 || index >= length) {
+            cout << "[Get] Failed: Invalid index" << endl;
+            return -1;
+        }
+        return A[index];
+    }
+
+    // Set — O(1)
+    void Set(int index, int element) {
+        if (index < 0 || index >= length) {
+            cout << "[Set] Failed: Invalid index" << endl;
+            return;
+        }
+        A[index] = element;
+    }
+
+    void display() {
+        cout << "Array contents: ";
+        for (int i = 0; i < length; i++) {
+            cout << A[i] << " ";
+        }
+        cout << endl;
+    }
+
+    ~Array() {
+        delete[] A;
+        cout << "Array destroyed (memory released)" << endl;
+    }
+};
+
+int main() {
+    int init[] = {10, 20, 30, 40};
+    int n = sizeof(init) / sizeof(init[0]);
+    Array arr(10, init, n);
+
+    arr.display();
+
+    arr.Insert(2, 25);    // Insert 25 at index 2
+    arr.display();
+
+    arr.Delete(4);        // Delete element at index 4
+    arr.display();
+
+    int idx = arr.Search(30);  // Search for 30
+    if (idx != -1)
+        cout << "[Search] Element 30 found at index " << idx << endl;
+    else
+        cout << "[Search] Element 30 not found" << endl;
+
+    int val = arr.Get(1);      // Get value at index 1
+    if (val != -1)
+        cout << "[Get] Value at index 1 = " << val << endl;
+
+    arr.Set(0, 99);            // Set value at index 0
+    arr.display();
 
     return 0;
 }
 
-
-Elements are:
-arr.A[0] = 2
-arr.A[1] = 3
-arr.A[2] = 4
-arr.A[3] = 5
-arr.A[4] = 6

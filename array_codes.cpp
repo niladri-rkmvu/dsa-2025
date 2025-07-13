@@ -45,12 +45,6 @@ int main()
     return 0;
 }
 
-140735579401376
-140735579401380
-140735579401384
-140735579401388
-140735579401392
-
 /* -------------------------------
 3. VLAs - allowed after C99 & C++
 ----------------------------------*/
@@ -107,13 +101,6 @@ int main()
     return 0;
 }
 
-A[0] = 10
-A[1] = 20
-A[2] = 30
-A[3] = 40
-A[4] = 50
-Address of array in Heap = 0x623f543d62a0
-
 /*------------ ------------ ------------ */
 //  4.b. Pointers : create array in heap | C++
 /*------------ ------------ ------------ */
@@ -149,13 +136,6 @@ int main()
 
     return 0;
 }
-
-A[0] = 10
-A[1] = 20
-A[2] = 30
-A[3] = 40
-A[4] = 50
-Address of array in heap = 0x639abf51b2b0
 
 /*------------ ------------ ------------ */
 //  5. Increase size of Dynamic array
@@ -219,24 +199,6 @@ int main()
     return 0;
 }
 
-Address of p = 0x58ad764402b0
- ------------- 
-p[0] = 10
-p[1] = 20
-p[2] = 30
-p[3] = 40
-p[4] = 50
- ------------- 
-Address of q = 0x58ad764406e0
-q[0] = 10
-q[1] = 20
-q[2] = 30
-q[3] = 40
-q[4] = 50
-Address of p after reset = 0x58ad764406e0
-Address of q after reset = 0
-
-
 /*------------ ------------ ------------ */
 //  6.a Demo 2D array | row major order & col major order
 /*------------ ------------ ------------ */
@@ -276,23 +238,6 @@ int main() {
 
     return 0;
 }
-
-Row-major order:
-A[0][0] = 1
-A[0][1] = 2
-A[0][2] = 3
-A[1][0] = 4
-A[1][1] = 5
-A[1][2] = 6
-
-Column-major order:
-A[0][0] = 1
-A[1][0] = 4
-A[0][1] = 2
-A[1][1] = 5
-A[0][2] = 3
-A[1][2] = 6
-
 
 /*------------ ------------ ------------ */
 //  6.b Demo 2D array
@@ -353,26 +298,6 @@ int main() {
 
     return 0;
 }
-
-Addresses in Array variable in Stack : 
- --------------- 
-address (A[0]) in stack = 0x7fff8f9c9a50
-address (A[1]) in stack = 0x7fff8f9c9a58
-
-Addresses in Array in Heap : 
- --------------- 
-A[0] = 0x60640f52e2b0
-A[1] = 0x60640f52e2d0
-
- --------------- 
-Values of Array in Heap : 
-A[0][0] = 10
-A[0][1] = 20
-A[0][2] = 30
-A[1][0] = 40
-A[1][1] = 50
-A[1][2] = 60
-
 
 /*------------ ------------ ------------ */
 //  6.c Demo 2D array
@@ -439,23 +364,6 @@ int main() {
     return 0;
 }
 
-Address (A) in stack = 0x7ffd68058730
-A[0] in heap = 0x55ffa9bde2b0
- --------------- 
-Addresses in Array in Heap : 
- --------------- 
-A[0] (should be same what A[0] in heap printed above) = 0x55ffa9bde2d0
-A[1] = 0x55ffa9bde2f0
- --------------- 
-Values of Array in Heap : 
-A[0][0] = 10
-A[0][1] = 20
-A[0][2] = 30
-A[1][0] = 40
-A[1][1] = 50
-A[1][2] = 60
-
-
 /*------------ ------------ ------------ */
 //  7. Demo 3D array | row major order & col major order
 /*------------ ------------ ------------ */
@@ -504,34 +412,6 @@ int main() {
     return 0;
 }
 
-Row-major order:
-A[0][0][0] = 1
-A[0][0][1] = 2
-A[0][0][2] = 3
-A[0][1][0] = 4
-A[0][1][1] = 5
-A[0][1][2] = 6
-A[1][0][0] = 7
-A[1][0][1] = 8
-A[1][0][2] = 9
-A[1][1][0] = 10
-A[1][1][1] = 11
-A[1][1][2] = 12
-
-Column-major order:
-A[0][0][0] = 1
-A[1][0][0] = 7
-A[0][1][0] = 4
-A[1][1][0] = 10
-A[0][0][1] = 2
-A[1][0][1] = 8
-A[0][1][1] = 5
-A[1][1][1] = 11
-A[0][0][2] = 3
-A[1][0][2] = 9
-A[0][1][2] = 6
-A[1][1][2] = 12
-
 /*------------ ------------ ------------ */
 //  8.a. 2x2 RMO and CMO Address Calculation
 /*------------ ------------ ------------ */
@@ -571,12 +451,6 @@ int main() {
 
     return 0;
 }
-
-RMO Preceding Elements = 137
-RMO Address            = 1274
-
-CMO Preceding Elements = 127
-CMO Address            = 1254
 
 // -----------------------------------------------------------
 // Title: 8.b. 3x3 RMO and CMO Address Calculation
@@ -624,103 +498,14 @@ int main() {
     return 0;
 }
 
-Row-Major Order (RMO) Address Calculation
-RMO Preceding Elements = 97
-RMO Address            = 1194
-
-Column-Major Order (CMO) Address Calculation
-CMO Preceding Elements = 73
-CMO Address            = 1146
-
-
 // -----------------------------------------------------------
-// 9.a Array ADT 
-// initialize and display
+//   9 Array ADT 
 // -----------------------------------------------------------
 
 #include <iostream>
-using namespace std;
-
-// Definition of the Array class
-class Array {
-
-// the private section is not available to the calling part = inside main
-private:
-    int* A;                   // Pointer to dynamically allocated array memory
-    int size;                 // Total capacity of the array
-    int length;               // Number of elements currently in the array
-
-public:
-    // Constructor to initialize the array with a specific size
-    Array(int size) {
-        this->size = size;    // Set the array size
-        A = new int[size];    // Allocate memory dynamically in heap
-    }
-
-    // Function to accept array elements from the user
-    void create() {
-        cout << "Enter number of elements: " << flush;
-        cin >> length;        // Get the number of elements to input
-
-        cout << "Enter the array elements: " << endl;
-        for (int i = 0; i < length; i++) {
-            cout << "Array element " << i << " = " << flush;
-            cin >> A[i];      // Input elements into array
-        }
-    }
-
-    // Function to display elements of the array
-    void display() {
-        cout << "Array elements: ";
-        for (int i = 0; i < length; i++) {
-            cout << A[i] << " ";  // Print each element
-        }
-        cout << endl;
-    }
-
-    // Destructor to release dynamically allocated memory
-    ~Array() {
-        delete[] A;           // Deallocate memory
-        cout << "Array destroyed" << endl;
-    }
-};
-
-// Main function to create and use an Array object
-int main() {
-    int arraySize;
-    cout << "Enter desired array size: " << flush;
-    cin >> arraySize;          // Read array size from user
-
-    Array myArray(arraySize);  // Create an Array object with user-defined size
-
-    myArray.create();          // Populate array elements
-    myArray.display();         // Display the elements
-
-    return 0;                  // Indicate successful completion
-}
-
-Enter desired array size: 10
-Enter number of elements: 5
-Enter the array elements: 
-Array element 0 = 10
-Array element 1 = 24
-Array element 2 = 80
-Array element 3 = 105
-Array element 4 = 78
-Array elements: 10 24 80 105 78 
-Array destroyed
-
-
-// -----------------------------------------------------------
-// 9.b Array ADT 
-// Insert(int index, int element)
-// Delete(int index)
-// Search(int element)
-// Get(int index)
-// Set(int index, int element)
-// -----------------------------------------------------------
-
-#include <iostream>
+#include <utility>   // For std::pair
+#include <algorithm> // For std::sort, max
+#include <limits>    // for (-infinity)
 using namespace std;
 
 class Array {
@@ -735,6 +520,13 @@ public:
         this->size = size;
         this->length = initialLength;
         A = new int[size];
+        for (int i = 0; i < initialLength; i++) {
+            A[i] = initialElements[i];
+        }
+    }
+
+    void Reset(int initialElements[], int initialLength) {
+        length = initialLength;
         for (int i = 0; i < initialLength; i++) {
             A[i] = initialElements[i];
         }
@@ -764,6 +556,7 @@ public:
         for (int i = index; i < length - 1; i++) {
             A[i] = A[i + 1];
         }
+        A[length-1] = 0;
         length--;
     }
 
@@ -793,12 +586,151 @@ public:
         A[index] = element;
     }
 
-    void display() {
-        cout << "Array contents: ";
+    void display(const string &msg) {
+        cout << endl;
+        cout << "Array contents: " << msg << endl;
         for (int i = 0; i < length; i++) {
             cout << A[i] << " ";
         }
         cout << endl;
+    }
+
+    // TC = O(n)
+    pair<int, int> max_1_2() {
+        if (length < 2) {
+            cout << "[max_1_2] Failed: Not enough elements" << endl;
+            return {-1, -1};
+        }
+
+        int max1;
+        int max2;
+
+        if (A[0] > A[1]){
+            max1 = A[0];
+            max2 = A[1];
+        }
+        else{
+            max1 = A[1];
+            max2 = A[0];
+        }
+
+        for (int i = 2; i < length; i++) {
+            if (A[i] > max1) {
+                max2 = max1;
+                max1 = A[i];
+            }
+            else if (A[i] > max2){
+                max2 = A[i];
+            }
+        }
+
+        return {max1, max2};
+    }
+
+    // TC = O(n)
+    int min(){
+        int min;
+        min = A[0];
+        for (int i=1; i < length; i++){
+            if (A[i] < min){
+                min = A[i];
+            }
+        }
+        return min;
+    }
+
+    // TC = O(n)
+    int sum(){
+        int total = 0;
+
+        for(int i=0; i < length; i++){
+            total += A[i];
+        }
+        return total;
+    }
+
+    // private method
+    // TC = O(n) = depth of recursion
+    // SC = O(n)
+    int rsumHelper(int index) {
+        if (index < 0) 
+            return 0;
+        return A[index] + rsumHelper(index - 1);
+    }
+
+    int rsum(){
+        return rsumHelper(length - 1);
+    }
+
+    // TC = O(n)
+    pair<int, int> findPairWithSum(int target) {
+
+        sort(A, A+length);
+        display("After sorting = sort(A, A+length)");
+
+        int L = 0;
+        int R = length-1;
+
+        while (L < R) {
+            int curr_sum = A[L] + A[R];
+
+            if (curr_sum == target) {
+                return {L, R}; // Return indices of the pair
+            }
+            else if (curr_sum > target) {
+                R--;
+            }
+            else {
+                L++;
+            }
+        }
+
+        return {-1, -1}; // Not found
+    }
+
+    // TC = O(n^2)
+    int sum_SubArray_brute_force(int w){
+        int maxx = numeric_limits<int>::min();
+        int curr_sum = 0;
+
+        if (w > length || w <= 0) {
+            cout << "[sum_SubArray_brute_force] Invalid window size" << endl;
+            return -1;
+        }
+
+        for (int i=0; i <= length-w; i++){
+            curr_sum = 0;
+            for (int j=i; j <= i+w-1; j++){
+                curr_sum = curr_sum + A[j];
+            }
+            maxx = max(curr_sum, maxx);
+        }
+        return maxx;
+    }
+
+    // TC = O(n)
+    int sum_SubArray_sliding_window(int w){
+        int curr_sum = 0;
+
+        if (w > length || w <= 0) {
+            cout << "[sum_SubArray_sliding_window] Invalid window size" << endl;
+            return -1;
+        }
+
+        // for window 0
+        for (int i=0; i<w; i++){
+            curr_sum = curr_sum + A[i];
+        }
+
+        int maxx = curr_sum;
+
+        // for windows 1,2,3
+        for (int i=1; i <= length-w; i++){
+            curr_sum = curr_sum - A[i-1] + A[i+w-1];
+            maxx = max(curr_sum, maxx);
+        }
+
+        return maxx;
     }
 
     ~Array() {
@@ -808,17 +740,17 @@ public:
 };
 
 int main() {
-    int init[] = {10, 20, 30, 40};
+    int init[] = {10, 20, 30, 40, 23, 89, 11, 94, 4};
     int n = sizeof(init) / sizeof(init[0]);
     Array arr(10, init, n);
 
-    arr.display();
+    arr.display("Array arr(10, init, n)");
 
     arr.Insert(2, 25);    // Insert 25 at index 2
-    arr.display();
+    arr.display("arr.Insert(2, 25)");
 
     arr.Delete(4);        // Delete element at index 4
-    arr.display();
+    arr.display("arr.Delete(4)");
 
     int idx = arr.Search(30);  // Search for 30
     if (idx != -1)
@@ -831,13 +763,83 @@ int main() {
         cout << "[Get] Value at index 1 = " << val << endl;
 
     arr.Set(0, 99);            // Set value at index 0
-    arr.display();
+    arr.display("arr.Set(0, 99)");
+
+    pair<int, int> result = arr.max_1_2();
+    cout << "[Max] Maximum = " << result.first << ", Second Maximum = " << result.second << endl;
+
+    int min_result = arr.min();
+    cout << "[Min] Minimum = " << min_result << endl;
+
+    int sum_result = arr.sum();
+    cout << "[Sum] = " << sum_result << endl;
+
+    int r_sum_result = arr.rsum();
+    cout << "[RSum] = " << r_sum_result << endl;
+
+    int avg = sum_result / n;
+    cout << "[avg] = " << avg << endl;
+
+    result = arr.findPairWithSum(183);
+    cout << "target = 183 | " << "First =" << result.first << " | Second = " << result.second << endl;
+    
+    arr.Reset(init, n);
+    arr.display("arr.Reset(init, n);");
+
+    int max_sum_SubArray_brute_force = arr.sum_SubArray_brute_force(4);
+    cout << "max_sum_SubArray_brute_force = " << max_sum_SubArray_brute_force << endl;
+
+    int max_sum_SubArray_sliding_window = arr.sum_SubArray_sliding_window(4);
+    cout << "max_sum_SubArray_sliding_window = " << max_sum_SubArray_sliding_window << endl;
 
     return 0;
 }
 
+
 // -----------------------------------------------------------
-// 1.a Linear Search
+// 10. Remove duplicate elements from a sorted array
+// -----------------------------------------------------------
+
+#include <iostream>
+#include <utility>   // For std::pair
+using namespace std;
+
+
+pair<int*, int> remove_duplicates(int *p, int size){
+    int* newArr = new int[size];
+    int x = 0;
+
+    newArr[x++] = p[0];  // Always keep the first element
+
+    for (int i = 1; i < size; i++) {
+        if (p[i] != p[i - 1]) {
+            newArr[x++] = p[i];
+        }
+    }
+    pair<int*, int> result(newArr, x);  // Explicit constructor
+    return result;
+}
+
+
+int main(){
+    int arr[] = {5,5,7,8,8,9,9,10,10};
+    int length = sizeof(arr) / sizeof(arr[0]);
+
+    pair<int*, int> result = remove_duplicates(arr, length);
+    int* newArr = result.first;
+    int newSize = result.second;
+
+    cout << "Unique elements: ";
+    for (int i = 0; i < newSize; ++i)
+        cout << newArr[i] << " ";
+    cout << endl;
+
+    delete[] newArr;
+    return 0;
+}
+
+// -----------------------------------------------------------
+// 11.a. Linear Search
 // -----------------------------------------------------------
 
 #include <stdio.h>
@@ -884,7 +886,7 @@ int main()
 /****************************  *************************** ***/
 
 // -----------------------------------------------------------
-// 1.b Linear Search
+// 11.b Linear Search
 // Improvements
 //      1. Transposition
 //      2. Move to Head
@@ -973,33 +975,93 @@ int main() {
     Display(&arr);
 
     return 0;
+} 
+
+/****************************  *************************** ***/
+
+// -----------------------------------------------------------
+// 12. Binary Search
+// Iterative approach
+// Recursion approach
+// -----------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+// -----------------------------------------------------------
+// Array ADT Definition
+// -----------------------------------------------------------
+struct Array {
+    int A[10];     // Static fixed-size array
+    int size;      // Total capacity
+    int length;    // Current number of elements
+};
+
+// -----------------------------------------------------------
+// Display Function — shows array contents
+// -----------------------------------------------------------
+void Display(Array arr) {
+    for (int i = 0; i < arr.length; i++)
+        cout << "A[" << i << "] = " << arr.A[i] << endl;
+    cout << endl;
 }
 
-Initial Array elements → 2 3 4 5 6 
-[Transposition] Element 4 moved from index 2 to 1
-[Transposition] Returned index: 1
-Array elements → 2 4 3 5 6 
-[Move-to-Head] Element 4 moved to front
-[Move-to-Head] Returned index: 0
-Array elements → 4 2 3 5 6 
+// -----------------------------------------------------------
+// Iterative Binary Search — Step-by-step trace table
+// -----------------------------------------------------------
+int BinarySearch_iter(Array arr, int key) {
+    int l = 0;
+    int h = arr.length - 1;
+    int mid;
 
+    while (l <= h) {
+        mid = (l + h) / 2;
 
-/****************************  *************************** ***/
+        if (arr.A[mid] == key)
+            return mid;
+        else if (key < arr.A[mid])
+            h = mid - 1;
+        else
+            l = mid + 1;
+    }
+    return -1;
+}
 
+// -----------------------------------------------------------
+// Recursive Binary Search — with Key column in trace table
+// -----------------------------------------------------------
+int BinarySearch_Recursive(int a[], int l, int h, int key) {
+    int mid;
 
+    if (l <= h) {
+        mid = (l + h) / 2;
+        
+        if (key == a[mid])
+            return mid;
+        else if (key < a[mid])
+            return BinarySearch_Recursive(a, l, mid - 1, key);
+        else
+            return BinarySearch_Recursive(a, mid + 1, h, key);
+    }
+    return -1;
+}
 
+// -----------------------------------------------------------
+// Main — Demonstrates both search methods
+// -----------------------------------------------------------
+int main() {
+    Array arr = {{2, 3, 4, 5, 6}, 10, 5};
 
+    Display(arr);
 
-/****************************  *************************** ***/
+    int key = 5;
 
+    int index = BinarySearch_iter(arr, key);
+    cout << "BinarySearch_iter | key = " << key << " | Returned Index = " << index << endl;
 
+    index = BinarySearch_Recursive(arr.A, 0, arr.length - 1, key);
+    cout << "BinarySearch_Recursive | key = " << key << " | Returned Index = " << index << endl;
 
-
-
-/****************************  *************************** ***/
-
-
-
-
-
+    return 0;
+}
 /****************************  *************************** ***/

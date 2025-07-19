@@ -311,11 +311,23 @@ public:
         cout << "\nIndex Mapping (" << ((mode == 'R') ? "Row" : "Column") << "-Major Order):\n";
 
         for (int i = 1; i <= n; ++i) {
-            for (int j = i; j <= n; ++j) {
-                int computed_index = (mode == 'R') ? rmo_index(i, j) : cmo_index(i, j);
-                cout << "A[" << computed_index << "] = M(" << i << "," << j << ") = " << A[computed_index] << endl;
+            for (int j = 1; j <= i; ++j) {  // j should go from 1 to i
+                int index = (mode == 'R') ? rmo_index(i, j) : cmo_index(i, j);
+                cout << "A[" << index << "] = M(" << i << "," << j << ") = " << A[index] << endl;
             }
         }
+    }
+
+    // Displays the contents of the linear array A directly.
+    void displayLinearArray() const {
+        cout << "\nLinear Array (A) Contents:\n[";
+        for (size_t k = 0; k < A.size(); ++k) {
+            cout << A[k];
+            if (k < A.size() - 1) {
+                cout << ", ";
+            }
+        }
+        cout << "]\n";
     }
 };
 
@@ -344,6 +356,7 @@ int main() {
         matrix.display();
 
         matrix.displayIndexMapping();
+        matrix.displayLinearArray();
 
     } catch (const exception& e) {
         cerr << "Error: " << e.what() << endl;
@@ -352,7 +365,6 @@ int main() {
 
     return 0;
 }
-
 
 /* -------------------------------
 3. Upper Triangular matrix - RMO and CMO
@@ -423,11 +435,23 @@ public:
         cout << "\nIndex Mapping (" << ((mode == 'R') ? "Row" : "Column") << "-Major Order):\n";
 
         for (int i = 1; i <= n; ++i) {
-            for (int j = i; j <= n; ++j) {
-                int computed_index = (mode == 'R') ? rmo_index(i, j) : cmo_index(i, j);
-                cout << "A[" << computed_index << "] = M(" << i << "," << j << ") = " << A[computed_index] << endl;
+            for (int j = i; j <= n; ++j) {  // j should go from i to n
+                int index = (mode == 'R') ? rmo_index(i, j) : cmo_index(i, j);
+                cout << "A[" << index << "] = M(" << i << "," << j << ") = " << A[index] << endl;
             }
         }
+    }
+
+    // Displays the contents of the linear array A directly.
+    void displayLinearArray() const {
+        cout << "\nLinear Array (A) Contents:\n[";
+        for (size_t k = 0; k < A.size(); ++k) {
+            cout << A[k];
+            if (k < A.size() - 1) {
+                cout << ", ";
+            }
+        }
+        cout << "]\n";
     }
 
 };
@@ -457,6 +481,7 @@ int main() {
         matrix.display();
 
         matrix.displayIndexMapping();
+        matrix.displayLinearArray();
 
     } catch (const exception& e) {
         cerr << "Error: " << e.what() << endl;
@@ -473,7 +498,7 @@ int main() {
 #include <iostream>
 #include <vector>
 #include <stdexcept>
-#include <algorithm> // Required for std::min/max
+#include <algorithm>
 
 using namespace std;
 
@@ -547,12 +572,8 @@ public:
     }
 
     // Displays the mapping of matrix elements (specifically the lower triangle and diagonal)
-    // to their corresponding indices in the linear array A.
     void displayIndexMapping() const {
         cout << "\nIndex Mapping (" << ((mode == 'R') ? "Row" : "Column") << "-Major Order):\n";
-
-        // Iterate through the lower triangle and diagonal elements (i >= j)
-        // and show their mapping to the linear array.
         for (int i = 1; i <= n; ++i) {
             for (int j = 1; j <= i; ++j) { // Only iterate through lower triangle
                 int computed_index = (mode == 'R') ? rmo_index(i, j) : cmo_index(i, j);
@@ -602,7 +623,7 @@ int main() {
         matrix.display();
 
         matrix.displayIndexMapping();
-        matrix.displayLinearArray(); // New call to display the linear array directly
+        matrix.displayLinearArray();
 
     } catch (const exception& e) {
         cerr << "Error: " << e.what() << endl;

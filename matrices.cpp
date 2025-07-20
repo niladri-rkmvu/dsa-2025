@@ -632,3 +632,128 @@ int main() {
 
     return 0;
 }
+
+/* -------------------------------
+5. Tri-diagonal matrix
+----------------------------------*/
+
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+#include <algorithm>
+
+using namespace std;
+
+class TriDiagonalMatrix {
+private:
+    vector<int> A;
+    int n;
+
+    // Indexing: lower, main, upper
+    int index(int i, int j) const {
+        if (i - j == 1)      return i - 2;                   // Lower diagonal
+        else if (i == j)     return (n - 1) + (i - 1);       // Main diagonal
+        else if (i - j == -1) return (2 * n - 1) + (i - 1);  // Upper diagonal
+        else throw invalid_argument("Invalid access for TriDiagonalMatrix.");
+    }
+
+public:
+    TriDiagonalMatrix(int size) : n(size) {
+        A.resize(3 * n - 2, 0);
+    }
+
+    void set(int i, int j, int x) {
+        if (i < 1 || j < 1 || i > n || j > n)
+            throw out_of_range("Index out of bounds.");
+        if (abs(i - j) > 1)
+            return;  // Only tri-diagonal elements are stored
+        A[index(i, j)] = x;
+    }
+
+    int get(int i, int j) const {
+        if (i < 1 || j < 1 || i > n || j > n)
+            throw out_of_range("Index out of bounds.");
+        if (abs(i - j) > 1)
+            return 0;  // Non-tri-diagonal entries are zero
+        return A[index(i, j)];
+    }
+
+    void display() const {
+        cout << "\n--- Matrix Display ---\n";
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                cout << get(i, j) << " ";
+            }
+            cout << endl;
+        }
+    }
+
+    void displayLinearArray() const {
+        cout << "\n--- Linear Array Contents ---\n[";
+        for (size_t k = 0; k < A.size(); ++k) {
+            cout << A[k];
+            if (k < A.size() - 1) cout << ", ";
+        }
+        cout << "]\n";
+    }
+
+    void displayIndexMapping() const {
+        cout << "\n--- Index Mapping ---\n";
+        for (int i = 1; i <= n; ++i) {
+            for (int j = max(1, i - 1); j <= min(n, i + 1); ++j) {
+                try {
+                    int idx = index(i, j);
+                    cout << "A[" << idx << "] = M(" << i << "," << j << ") = " << A[idx] << endl;
+                } catch (...) {
+                    // skip invalid accesses
+                }
+            }
+        }
+    }
+};
+
+int main() {
+    int n, value;
+
+    cout << "Enter matrix dimension (n): ";
+    cin >> n;
+
+    TriDiagonalMatrix matrix(n);
+    cout << "\nEnter values for lower, main, and upper diagonals:\n";
+
+    for (int i = 1; i <= n; ++i) {
+        for (int j = max(1, i - 1); j <= min(n, i + 1); ++j) {
+            cout << "Enter M[" << i << "][" << j << "]: ";
+            cin >> value;
+            matrix.set(i, j, value);
+        }
+    }
+
+    matrix.display();
+    matrix.displayIndexMapping();
+    matrix.displayLinearArray();
+
+    return 0;
+}
+
+/*
+
+[ 10  1   0   0   0 ]
+[ 2  20  3   0   0 ]
+[ 0   4  30  5   0 ]
+[ 0   0   6  40  7 ]
+[ 0   0   0   8  50 ]
+
+for (int i = 1; i <= n; ++i) {
+        for (int j = max(1, i - 1); j <= min(n, i + 1); ++j) {
+
+i                           j
+-----------------------------------------------------------
+1   max(1,0)=1 .. min(5,2)=2  => M[1][1] , M[1][2]
+2   max(1,1)=1 .. min(5,3)=3  => M[2][1] , M[2][2] , M[2][3]
+3   max(1,2)=2 .. min(5,4)=4  => M[3][2] , M[3][3] , M[3][4]
+4   max(1,3)=3 .. min(5,5)=5  => M[4][3] , M[4][4] , M[4][5]
+5   max(1,4)=4 .. min(5,6)=5  => M[5][4] , M[5][5]
+
+*/
+

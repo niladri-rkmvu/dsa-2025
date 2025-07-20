@@ -79,6 +79,7 @@ int main()
 2. Create a sparse matrix | C++
 Include add function
 Ensure you enter the input from 0 index - for both row and col
+Assumption - you need to enter sparse matrix in sorted order (follow row-major order)
 ----------------------------------*/
 
 #include <iostream>
@@ -111,7 +112,7 @@ void create(Sparse *s)
 
 	s->ele = new Element[s->num];
 
-	cout << "Enter non-zero elements (row, col, val) : " << endl;
+	cout << "Enter non-zero elements (row, col, val) in row-major order: " << endl;
 
 	for (int i=0; i<s->num; i++)
 	{

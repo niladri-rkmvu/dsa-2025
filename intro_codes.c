@@ -143,10 +143,6 @@ int main()
 }
 
 
-/*------------ ------------ ------------ */
-//  Structure to Pointer | Structure in Stack
-/*------------ ------------ ------------ */
-
 #include <iostream>
 #include <stdio.h>
 using namespace std;
@@ -159,10 +155,6 @@ struct Rectangle {
 int main()
 {
     struct Rectangle *p; // create the pointer = default size = 8 bytes
-    struct Rectangle r; // it will create the struct in stack
-    // Rectangle r is also valid in C++
-
-    p = &r;
     
     // now to access length and breadth 
     p->length = 10;
@@ -175,7 +167,6 @@ int main()
     
     return 0;
 }
-
 /*------------ ------------ ------------ */
 //  Structure to Pointer | Structure in Heap
 /*------------ ------------ ------------ */

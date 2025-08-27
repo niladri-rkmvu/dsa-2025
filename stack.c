@@ -1,5 +1,5 @@
 // ------------------
-//		Stack
+//	Stack using array
 //-------------------
 
 #include <stdio.h>
@@ -157,4 +157,72 @@ int main()
 
 	free(st.s);
 	return 0;
+}
+
+// ------------------
+// Stack using Linked List
+//-------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+// Declare top as a global pointer to Node
+Node *top = NULL;
+
+void push(int x)
+{
+	Node *p;
+	p = (Node *)malloc(sizeof(Node));
+	if (p == NULL){
+		printf("Stack is full\n");
+	}
+	else{
+		p->data = x;
+		p->next = top;
+		top = p;
+	}
+}
+
+int pop()
+{
+	Node *t;
+	int x = -1;
+	
+	if(top == NULL){
+		printf("Stack is empty\n");
+	}
+	else{
+		t = top;
+		top = top->next;
+		x = t->data;
+		free(t);
+	}
+	return x;
+}
+
+void Display()
+{
+	Node *p;
+	p = top;
+	while(p != NULL){
+		printf("%d -> ",p->data);
+		p = p->next;
+	}
+	printf("None\n");
+}
+
+int main()
+{
+	push(10);
+	push(20);
+	push(30);
+
+	Display();
+
+	printf("%d ",pop());
 }

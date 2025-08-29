@@ -226,3 +226,132 @@ int main()
 
 	printf("%d ",pop());
 }
+
+// ------------------------------------
+// Stack : Linked List : Parenthesis check
+//-------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define a Node structure for the linked list
+typedef struct Node {
+    char data;
+    struct Node *next;
+} Node;
+
+// Declare top as a global pointer to the top of the stack
+Node *top = NULL;
+
+// Function to push a character onto the stack
+void push(char x) {
+    Node *p = (Node *)malloc(sizeof(Node));
+    if (p == NULL) {
+        printf("push(char x) : Stack overflow (Heap full)\n");
+    } else {
+        p->data = x;
+        p->next = top;
+        top = p;
+    }
+}
+
+// Function to pop a character from the stack
+char pop() {
+    Node *t;
+    char x = '\0'; // Use a null character to indicate an empty stack
+    
+    if (top == NULL) {
+        printf("pop() : Stack is empty\n"); // No need for this print in the main logic
+    } else {
+        t = top;
+        top = top->next;
+        x = t->data;
+        free(t);
+    }
+    return x;
+}
+
+// Function to check if the stack is empty
+int isEmpty() {
+    return top == NULL;
+}
+
+// Function to check if the stack is full (not possible with this implementation)
+int isFull() {
+    Node *t = (Node *)malloc(sizeof(Node));
+    if (t) {
+        free(t);
+        return 0; // Not full
+    }
+    return 1; // Full
+}
+
+// Function to clear the stack (important for subsequent calls to isBalanced)
+void clearStack() {
+    Node *temp;
+    while (top != NULL) {
+        temp = top;
+        top = top->next;
+        free(temp);
+    }
+}
+
+// Function to check if an expression has balanced parentheses
+int isBalanced(char *exp) {
+    // Clear the stack before starting
+    clearStack();
+
+    for (int i = 0; exp[i] != '\0'; i++) {
+        if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{') {
+            push(exp[i]);
+        } else if (exp[i] == ')' || exp[i] == ']' || exp[i] == '}') {
+            if (isEmpty()) {
+                printf("isBalanced(char *exp) -> stack isEmpty() : Extra closing brackets detected. Expression is unbalanced.\n");
+                return 0;
+            }
+            
+            char popped_char = pop();
+            // Check for matching brackets
+            if ((exp[i] == ')' && popped_char != '(') ||
+                (exp[i] == ']' && popped_char != '[') ||
+                (exp[i] == '}' && popped_char != '{')) {
+                printf("isBalanced(char *exp) -> check_mistmatching_brackets_after_pop : Mismatched brackets detected. Expression is unbalanced.\n");
+                return 0;
+            }
+        }
+    }
+
+    if (isEmpty()) {
+        printf("isBalanced(char *exp) -> isEmpty() after_loop : Expression is balanced.\n");
+        return 1;
+    } else {
+        printf("isBalanced(char *exp) -> isEmpty() after_loop : Extra opening brackets detected. Expression is unbalanced.\n");
+        return 0;
+    }
+}
+
+int main() {
+    // Corrected string declaration
+    char *exp1 = "((a+b)*(c-d))";
+    char *exp2 = "((a+b)*[c-d]}"; // Mismatched brackets
+    char *exp3 = "((a+b)*(c-d)";   // Extra opening bracket
+    char *exp4 = "((a+b)))+((c-d)"; // Extra closing bracket
+
+    printf("main() : Expression: %s\n", exp1);
+    isBalanced(exp1);
+    printf("\n");
+
+    printf("main() : Expression: %s\n", exp2);
+    isBalanced(exp2);
+    printf("\n");
+
+    printf("main() : Expression: %s\n", exp3);
+    isBalanced(exp3);
+    printf("\n");
+    
+    printf("main() : Expression: %s\n", exp4);
+    isBalanced(exp4);
+    printf("\n");
+
+    return 0;
+}

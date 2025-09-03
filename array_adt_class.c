@@ -11,14 +11,14 @@ Array* createArray(int size, int* initialElements, int initLength) {
     Array* arr_heap = (Array*)malloc(sizeof(Array));
 
     if (arr_heap == NULL) {
-        printf("Heap is full\n");
+        printf("createArray : Heap is full\n");
         return NULL;
     }
 
     arr_heap->A = (int*)malloc(size * sizeof(int));
 
     if (arr_heap->A == NULL) {
-        printf("Heap is full. Array could not be created\n");
+        printf("createArray : Heap is full. Array could not be created\n");
         free(arr_heap);
         return NULL;
     }
@@ -31,27 +31,33 @@ Array* createArray(int size, int* initialElements, int initLength) {
     arr_heap->length = initLength;
 
     return arr_heap;
+    printf("---------------------\n");
 }
 
 void destroyArray(Array* arr) {
+    printf("---------------------\n");
     if (arr != NULL) {
         if (arr->A != NULL) {
             free(arr->A);
             arr->A = NULL;
+            printf("destroyArray : arr->A destoyed..\n");
         }
         free(arr);
         arr = NULL;
+        printf("destroyArray : arr destoyed..\n");
     }
+    printf("---------------------\n");
 }
 
 void display(const Array* arr, const char* msg) {
-    printf("----------\n");
+    printf("---------------------\n");
     printf("%s\n", msg);
-    printf("----------\n");
+    printf("---------------------\n");
     for (int i = 0; i < arr->length; i++)
         printf("%d ", arr->A[i]);
     printf("\n");
-    printf("length = %d\n", arr->length);
+    printf("display : length = %d\n", arr->length);
+    printf("---------------------\n");
 }
 
 void swap(int* x, int* y) {
@@ -61,29 +67,33 @@ void swap(int* x, int* y) {
 }
 
 int LinearSearch_T(Array* arr, int key) {
+    printf("---------------------\n");
     for (int i = 0; i < arr->length; i++) {
         if (arr->A[i] == key) {
             if (i > 0) {
                 swap(&arr->A[i], &arr->A[i - 1]);
-                printf("[Transposition] Element %d moved from index %d to %d\n", key, i, i - 1);
+                printf("LinearSearch_T : [Transposition] Element %d moved from index %d to %d\n", key, i, i - 1);
                 return i - 1;
             }
             return i;
         }
     }
-    printf("[Transposition] Element %d not found\n", key);
+    printf("LinearSearch_T : [Transposition] Element %d not found\n", key);
+    printf("---------------------\n");
     return -1;
 }
 
 int LinearSearch_MVH(Array* arr, int key) {
+    printf("---------------------\n");
     for (int i = 0; i < arr->length; i++) {
         if (arr->A[i] == key) {
             swap(&arr->A[i], &arr->A[0]);
-            printf("[Move-to-Head] Element %d moved to front\n", key);
+            printf("LinearSearch_MVH : [Move-to-Head] Element %d moved to front\n", key);
             return 0;
         }
     }
-    printf("[Move-to-Head] Element %d not found\n", key);
+    printf("LinearSearch_MVH : [Move-to-Head] Element %d not found\n", key);
+    printf("---------------------\n");
     return -1;
 }
 
@@ -102,7 +112,7 @@ int BinarySearch_iter(const Array* arr, int key) {
         else
             l = mid + 1;
     }
-
+    printf("---------------------\n");
     return -1;
 }
 
@@ -117,19 +127,22 @@ int BinarySearch_Recursive(const Array* arr, int l, int h, int key) {
         else
             return BinarySearch_Recursive(arr, mid + 1, h, key);
     }
+    printf("---------------------\n");
     return -1;
 }
 
-int sum(const Array* arr) {
+void sum(const Array* arr) {
+    printf("---------------------\n");
     int total = 0;
     for (int i = 0; i < arr->length; i++) {
         total += arr->A[i];
     }
-    return total;
+    printf("sum : Array Total = %d\n", total);
+    printf("---------------------\n");
 }
 
 int main() {
-    int init[] = {10, 20, 30, 40, 50};
+    int init[] = {10, 20, 30, 40, 50, 60, 70, 80, 90};
     int length = sizeof(init) / sizeof(init[0]);
     int size = length + 5;
 
@@ -140,12 +153,33 @@ int main() {
 
     display(arr, "Initialized array");
 
+    // --------------------------------------
     // Optional: test search and sum
-    LinearSearch_T(arr, 30);
-    LinearSearch_MVH(arr, 40);
-    display(arr, "After search optimizations");
+    // --------------------------------------
+    // LinearSearch_T(arr, 30);
+    // LinearSearch_MVH(arr, 40);
+    // display(arr, "After search optimizations");
 
-    printf("Sum = %d\n", sum(arr));
+    // --------------------------------------
+    //      Sum
+    // --------------------------------------
+
+    sum(arr);
+
+    // --------------------------------------
+    //      Binary Search Recurive
+    // --------------------------------------
+
+    int key = 30;
+    int search = BinarySearch_Recursive(arr,0,(arr->length-1),key);
+    printf("main : BinarySearch_Recursive : input = %d, output (search) = %d\n",key,search);
+
+    // --------------------------------------
+    //      Binary Search iterative
+    // --------------------------------------
+
+    search = BinarySearch_iter(arr,key);
+    printf("main : BinarySearch_iter : input = %d, output (search) = %d\n",key,search);
 
     destroyArray(arr);
     return 0;

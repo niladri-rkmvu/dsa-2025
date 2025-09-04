@@ -11,14 +11,14 @@ Array* createArray(int size, int* initialElements, int initLength) {
     Array* arr_heap = (Array*)malloc(sizeof(Array));
 
     if (arr_heap == NULL) {
-        printf("createArray : Heap is full\n");
+        printf("[createArray]: Heap is full\n");
         return NULL;
     }
 
     arr_heap->A = (int*)malloc(size * sizeof(int));
 
     if (arr_heap->A == NULL) {
-        printf("createArray : Heap is full. Array could not be created\n");
+        printf("[createArray]: Heap is full. Array could not be created\n");
         free(arr_heap);
         return NULL;
     }
@@ -40,24 +40,58 @@ void destroyArray(Array* arr) {
         if (arr->A != NULL) {
             free(arr->A);
             arr->A = NULL;
-            printf("destroyArray : arr->A destoyed..\n");
+            printf("[destroyArray]: arr->A destoyed..\n");
         }
         free(arr);
         arr = NULL;
-        printf("destroyArray : arr destoyed..\n");
+        printf("[destroyArray]: arr destoyed..\n");
     }
     printf("---------------------\n");
 }
 
 void display(const Array* arr, const char* msg) {
     printf("---------------------\n");
-    printf("%s\n", msg);
+    printf("[display]: %s\n", msg);
     printf("---------------------\n");
+    // for (int i = 0; i < arr->length; i++)
+    //     printf("%d ", arr->A[i]);
+    // printf("\n");
+    // printf("\n");
     for (int i = 0; i < arr->length; i++)
-        printf("%d ", arr->A[i]);
+        printf("A[%d] = %d\n", i, arr->A[i]);
     printf("\n");
-    printf("display : length = %d\n", arr->length);
+    // printf("\n");
+    printf("[display]: length = %d\n", arr->length);
+    printf("[display]: size = %d\n", arr->size);
     printf("---------------------\n");
+}
+
+// Insert — Best O(1), Worst O(n)
+void Insert(Array* arr, int index, int element) {
+    if (index < 0 || index > arr->length || arr->length >= arr->size) {
+        printf("[Insert] Failed: Invalid index or array full\n");
+        return;
+    }
+    // Shift elements to the right
+    for (int i = arr->length; i > index; i--) {
+        arr->A[i] = arr->A[i - 1];
+    }
+    arr->A[index] = element;
+    arr->length++;
+}
+
+// Delete — Best O(1), Worst O(n)
+void Delete(Array* arr,int index) {
+    if (index < 0 || index >= arr->length) {
+        printf("[Delete] Failed: Invalid index\n");
+        return;
+    }
+    // Shift elements to the left
+    for (int i = index; i < arr->length - 1; i++) {
+        arr->A[i] = arr->A[i + 1];
+    }
+    arr->A[arr->length - 1] = 0;  // Optional: clear last element
+    arr->length--;
 }
 
 void swap(int* x, int* y) {
@@ -72,13 +106,13 @@ int LinearSearch_T(Array* arr, int key) {
         if (arr->A[i] == key) {
             if (i > 0) {
                 swap(&arr->A[i], &arr->A[i - 1]);
-                printf("LinearSearch_T : [Transposition] Element %d moved from index %d to %d\n", key, i, i - 1);
+                printf("[LinearSearch_T]: [Transposition] Element %d moved from index %d to %d\n", key, i, i - 1);
                 return i - 1;
             }
             return i;
         }
     }
-    printf("LinearSearch_T : [Transposition] Element %d not found\n", key);
+    printf("[LinearSearch_T]: [Transposition] Element %d not found\n", key);
     printf("---------------------\n");
     return -1;
 }
@@ -88,11 +122,11 @@ int LinearSearch_MVH(Array* arr, int key) {
     for (int i = 0; i < arr->length; i++) {
         if (arr->A[i] == key) {
             swap(&arr->A[i], &arr->A[0]);
-            printf("LinearSearch_MVH : [Move-to-Head] Element %d moved to front\n", key);
+            printf("[LinearSearch_MVH]: [Move-to-Head] Element %d moved to front\n", key);
             return 0;
         }
     }
-    printf("LinearSearch_MVH : [Move-to-Head] Element %d not found\n", key);
+    printf("[LinearSearch_MVH]: [Move-to-Head] Element %d not found\n", key);
     printf("---------------------\n");
     return -1;
 }
@@ -131,56 +165,238 @@ int BinarySearch_Recursive(const Array* arr, int l, int h, int key) {
     return -1;
 }
 
-void sum(const Array* arr) {
+int sum(const Array* arr) {
     printf("---------------------\n");
     int total = 0;
     for (int i = 0; i < arr->length; i++) {
         total += arr->A[i];
     }
-    printf("sum : Array Total = %d\n", total);
+    printf("[sum]: Array Total = %d\n", total);
     printf("---------------------\n");
+    return total;
+}
+
+int Rsum_Helper(const int* A, int index) {
+    if (index < 0)
+        return 0;
+    return A[index] + Rsum_Helper(A, index - 1);
+}
+
+int Rsum(const Array* arr) {
+    if (arr == NULL || arr->A == NULL || arr->length <= 0) {
+        printf("[Rsum]: Invalid array or empty\n");
+        return 0;
+    }
+    return Rsum_Helper(arr->A, arr->length - 1);
+}
+
+int Get(const Array* arr, int index) {
+    if (index < 0 || index >= arr->length) {
+        printf("[Get]: Failed - Invalid index\n");
+        return -1;
+    }
+    return arr->A[index];
+}
+
+void Set(Array* arr, int index, int element) {
+    if (index < 0 || index >= arr->length) {
+        printf("[Set]: Failed - Invalid index\n");
+        return;
+    }
+    arr->A[index] = element;
+}
+
+int min(const Array* arr){
+    int min;
+    min = arr->A[0];
+
+    for (int i=1; i < arr->length; i++){
+        if (arr->A[i] < min){
+            min = arr->A[i];
+        }
+    }
+    return min;
+}
+
+int max(const Array* arr){
+    int max;
+    max = arr->A[0];
+
+    for (int i=1; i < arr->length; i++){
+        if (arr->A[i] > max){
+            max = arr->A[i];
+        }
+    }
+    return max;
+}
+
+int remove_duplicates_sorted_array(const Array* arr, int output[]) {
+    if (arr->length == 0) 
+        return 0;
+
+    int outIndex = 0;
+    output[outIndex++] = arr->A[0];
+
+    for (int i = 1; i < arr->length; i++) {
+        if (arr->A[i] != arr->A[i - 1]) {
+            output[outIndex++] = arr->A[i];
+        }
+    }
+    return outIndex;
 }
 
 int main() {
-    int init[] = {10, 20, 30, 40, 50, 60, 70, 80, 90};
+    int init[] = {10, 20, 20, 40, 50, 50, 50, 60, 70};
     int length = sizeof(init) / sizeof(init[0]);
     int size = length + 5;
+    int key, search, index, element, total;
+    int minVal, maxVal;
 
+    // --------------------------------------
+    // Array* createArray(int size, int* initialElements, int initLength)
+    // --------------------------------------
     Array* arr = createArray(size, init, length);
     if (arr == NULL) {
         return 1; // graceful exit on allocation failure
     }
+    // --------------------------------------
 
-    display(arr, "Initialized array");
 
     // --------------------------------------
-    // Optional: test search and sum
+    // void display(const Array* arr, const char* msg)
+    // --------------------------------------
+    display(arr, "Initialized array");
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // int LinearSearch_T(Array* arr, int key)
     // --------------------------------------
     // LinearSearch_T(arr, 30);
+    // display(arr, "[main]: After LinearSearch_T(arr, 30)");
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // int LinearSearch_MVH(Array* arr, int key)
+    // --------------------------------------
     // LinearSearch_MVH(arr, 40);
-    // display(arr, "After search optimizations");
-
-    // --------------------------------------
-    //      Sum
+    // display(arr, "[main]: After LinearSearch_MVH(arr, 40");
     // --------------------------------------
 
-    sum(arr);
 
     // --------------------------------------
-    //      Binary Search Recurive
+    // void sum(const Array* arr)
+    // --------------------------------------
+    // total = sum(arr);
     // --------------------------------------
 
-    int key = 30;
-    int search = BinarySearch_Recursive(arr,0,(arr->length-1),key);
-    printf("main : BinarySearch_Recursive : input = %d, output (search) = %d\n",key,search);
 
     // --------------------------------------
-    //      Binary Search iterative
+    // int Rsum(const Array* arr)
+    // --------------------------------------
+    // total = Rsum(arr);
+    // printf("[main]: int Rsum(const Array* arr) = %d\n",total);
     // --------------------------------------
 
-    search = BinarySearch_iter(arr,key);
-    printf("main : BinarySearch_iter : input = %d, output (search) = %d\n",key,search);
 
+    // --------------------------------------
+    // int BinarySearch_Recursive(const Array* arr, int l, int h, int key)
+    // --------------------------------------
+    // key = 97;
+    // search = BinarySearch_Recursive(arr,0,(arr->length-1),key);
+
+    // if (search != -1)
+    //     printf("[main]: BinarySearch_Recursive: input (element) = %d, output (index position) = %d\n",key,search);
+    // else
+    //     printf("[main]: BinarySearch_Recursive: input (element) = %d, output (index position) = failed\n",key);
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // int BinarySearch_iter(const Array* arr, int key)
+    // --------------------------------------
+    // search = BinarySearch_iter(arr,key);
+   
+    // if (search != -1)
+    //     printf("[main]: BinarySearch_iter input (element) = %d, output (index position) = %d\n",key,search);
+    // else
+    //     printf("[main]: BinarySearch_iter: input (element) = %d, output (index position) = failed\n",key);
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // void Insert(Array* arr, int index, int element)
+    // --------------------------------------
+    // index = 4; // taking a random index
+    // element = 78;
+    // Insert(arr, index, element);
+    // display(arr, "Insert(4,78)");
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // void Delete(Array* arr, int index)
+    // --------------------------------------
+    // index = 4;
+    // Delete(arr, index);
+    // display(arr, "Delete(4)");
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // int Get(const Array* arr, int index)
+    // --------------------------------------
+    // index = 3;
+    // element = Get(arr, index);
+    // printf("[main]: Get input (index) = %d, output (element) = %d\n",index,element);
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // void Set(Array* arr, int index, int element)
+    // --------------------------------------
+    // index = 3;
+    // element = 65;
+    // Set(arr, index, element);
+    // display(arr, "[main]: Set(arr, 3, 65);");
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // int max(const Array* arr)
+    // --------------------------------------
+    // maxVal = max(arr);
+    // printf("[main]: max(arr) = %d\n",maxVal);
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // int min(const Array* arr)
+    // --------------------------------------
+    // minVal = min(arr);
+    // printf("[main]: min(arr) = %d\n",minVal);
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // int remove_duplicates_sorted_array(const Array* arr, int output[])
+    // --------------------------------------
+    // int output[size];
+    // int newLength = remove_duplicates_sorted_array(arr,output);
+    // printf("[main]: after removing duplicates\n");
+    // for (int i = 0; i < newLength; i++)
+    //     printf("%d ", output[i]);
+    // printf("\n");
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // void destroyArray(Array* arr)
+    // --------------------------------------
     destroyArray(arr);
+    // --------------------------------------
+
     return 0;
 }
+

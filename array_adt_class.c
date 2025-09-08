@@ -263,13 +263,53 @@ int sum_2_pointer(Array* arr, int target, int *left_ptr, int *right_ptr) {
     return -1; // No pair found
 }
 
+// O(n^2) time complexity
+// O(1) space complexity
+int brute_force_subarray_sum(Array* arr, int w) {
+    int maxx = -1;
+    int curr_sum = 0;
+    for(int i = 0; i<= (arr->length - w); i++) {
+        curr_sum = 0;
+        for(int j = i; j <= (i + w - 1); j++) {
+            curr_sum = curr_sum + arr->A[j];
+        }
+        if(curr_sum > maxx) {
+            maxx = curr_sum;
+        }
+    }
+    return maxx;
+}
+
+// O(n) time complexity
+// O(1) space complexity
+int sliding_window_subarray_sum(Array* arr, int w) {
+    int maxx = -1;
+    int curr_sum = 0;
+
+    // window = 1
+    for(int i = 0; i < w; i++) {
+        curr_sum += arr->A[i];
+    }
+    maxx = curr_sum;
+
+    // rest of the windows
+    for(int i = w; i < arr->length; i++) {
+        curr_sum = curr_sum + arr->A[i] - arr->A[i - w]; 
+        if(curr_sum > maxx) {
+            maxx = curr_sum;
+        }
+    }
+    return maxx;
+}
+
 int main() {
-    int init[] = {1,2,3,5,7,10,11,15};
-    int length = sizeof(init) / sizeof(init[0]);
-    int size = length + 5;
-    int key, search, index, element, total;
-    int minVal, maxVal;
-    int result, left_idx,right_idx, target_sum = 15; // used for two-pointer algorithms
+    int init[] = {3,8,2,5,7,6,12};
+    int length = sizeof(init) / sizeof(init[0]); // initial length of the array
+    int size = length + 5; // extra space for future insertions
+    int key, search, index, element, total; // general-purpose variables
+    int minVal, maxVal; // for min() and max() functions
+    int result, left_idx,right_idx, target_sum = 15; // used for sum_2_pointer
+    int maxx = -1, w; // used for brute_force_subarray_sum, sliding_window_subarray_sum
 
     // --------------------------------------
     // Array* createArray(int size, int* initialElements, int initLength)
@@ -408,18 +448,35 @@ int main() {
     //     printf("%d ", output[i]);
     // printf("\n");
     // --------------------------------------
-    
+
 
     // --------------------------------------
     // int sum_2_pointer(Array* arr, int target, int *left_ptr, int *right_ptr)
     // --------------------------------------
     // result = sum_2_pointer(arr, target_sum, &left_idx, &right_idx);
     // if (result == -1) {
-    //     printf("[main]: No pair found with the target sum %d\n", target_sum);
+    //     printf("[main]: sum_2_pointer | No pair found with the target sum %d\n", target_sum);
     // }
     // else{
-    //     printf("[main]: Pair found with the target sum %d: A[%d] = %d, A[%d] = %d\n", target_sum, left_idx, arr->A[left_idx], right_idx, arr->A[right_idx]);
+    //     printf("[main]: sum_2_pointer | Pair found with the target sum %d: A[%d] = %d, A[%d] = %d\n", target_sum, left_idx, arr->A[left_idx], right_idx, arr->A[right_idx]);
     // }
+    // --------------------------------------
+
+    // --------------------------------------
+    // int brute_force_subarray_sum(Array* arr, int w)
+    // --------------------------------------
+    // w = 4; // window size
+    // maxx = brute_force_subarray_sum(arr, w);
+    // printf("[main]: brute_force_subarray_sum | w = %d is max sum = %d\n", w, maxx);
+    // --------------------------------------
+
+
+    // --------------------------------------
+    // int sliding_window_subarray_sum(Array* arr, int w)
+    // --------------------------------------
+    // w = 4; // window size
+    // maxx = sliding_window_subarray_sum(arr, w);
+    // printf("[main]: sliding_window_subarray_sum | w = %d is max sum = %d\n", w, maxx);
     // --------------------------------------
 
 

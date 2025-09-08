@@ -66,7 +66,8 @@ void display(const Array* arr, const char* msg) {
     printf("---------------------\n");
 }
 
-// Insert — Best O(1), Worst O(n)
+// Insert = Best O(1), Worst O(n)
+// Index is zero-based; insertion at arr->length appends to the end.
 void Insert(Array* arr, int index, int element) {
     if (index < 0 || index > arr->length || arr->length >= arr->size) {
         printf("[Insert] Failed: Invalid index or array full\n");
@@ -80,7 +81,7 @@ void Insert(Array* arr, int index, int element) {
     arr->length++;
 }
 
-// Delete — Best O(1), Worst O(n)
+// Delete = Best O(1) when deleting the last element, Worst O(n) when deleting from the beginning or middle (due to shifting elements)
 void Delete(Array* arr,int index) {
     if (index < 0 || index >= arr->length) {
         printf("[Delete] Failed: Invalid index\n");
@@ -245,12 +246,30 @@ int remove_duplicates_sorted_array(const Array* arr, int output[]) {
     return outIndex;
 }
 
+int sum_2_pointer(Array* arr, int target, int *left_ptr, int *right_ptr) {
+    *left_ptr = 0;
+    *right_ptr = arr->length - 1;
+
+    while (*left_ptr < *right_ptr) {
+        int current_sum = arr->A[*left_ptr] + arr->A[*right_ptr];
+        if (current_sum == target) {
+            return current_sum;
+        } else if (current_sum < target) {
+            (*left_ptr)++;
+        } else {
+            (*right_ptr)--;
+        }
+    }
+    return -1; // No pair found
+}
+
 int main() {
-    int init[] = {10, 20, 20, 40, 50, 50, 50, 60, 70};
+    int init[] = {1,2,3,5,7,10,11,15};
     int length = sizeof(init) / sizeof(init[0]);
     int size = length + 5;
     int key, search, index, element, total;
     int minVal, maxVal;
+    int result, left_idx,right_idx, target_sum = 15; // used for two-pointer algorithms
 
     // --------------------------------------
     // Array* createArray(int size, int* initialElements, int initLength)
@@ -388,6 +407,19 @@ int main() {
     // for (int i = 0; i < newLength; i++)
     //     printf("%d ", output[i]);
     // printf("\n");
+    // --------------------------------------
+    
+
+    // --------------------------------------
+    // int sum_2_pointer(Array* arr, int target, int *left_ptr, int *right_ptr)
+    // --------------------------------------
+    // result = sum_2_pointer(arr, target_sum, &left_idx, &right_idx);
+    // if (result == -1) {
+    //     printf("[main]: No pair found with the target sum %d\n", target_sum);
+    // }
+    // else{
+    //     printf("[main]: Pair found with the target sum %d: A[%d] = %d, A[%d] = %d\n", target_sum, left_idx, arr->A[left_idx], right_idx, arr->A[right_idx]);
+    // }
     // --------------------------------------
 
 

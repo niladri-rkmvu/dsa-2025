@@ -31,7 +31,6 @@ Array* createArray(int size, int* initialElements, int initLength) {
     arr_heap->length = initLength;
 
     return arr_heap;
-    printf("---------------------\n");
 }
 
 void destroyArray(Array* arr) {
@@ -45,6 +44,9 @@ void destroyArray(Array* arr) {
         free(arr);
         arr = NULL;
         printf("[destroyArray]: arr destoyed..\n");
+    }
+    else {
+        printf("[destroyArray]: Array is already NULL, no action taken.\n");
     }
     printf("---------------------\n");
 }
@@ -132,6 +134,7 @@ int LinearSearch_MVH(Array* arr, int key) {
     return -1;
 }
 
+// Binary search requires the array to be sorted
 int BinarySearch_iter(const Array* arr, int key) {
     int l = 0;
     int h = arr->length - 1;
@@ -151,6 +154,7 @@ int BinarySearch_iter(const Array* arr, int key) {
     return -1;
 }
 
+// Binary search requires the array to be sorted
 int BinarySearch_Recursive(const Array* arr, int l, int h, int key) {
     if (l <= h) {
         int mid = (l + h) / 2;
@@ -231,6 +235,7 @@ int max(const Array* arr){
     return max;
 }
 
+// Requires the input array 'arr' to be sorted.
 int remove_duplicates_sorted_array(const Array* arr, int output[]) {
     if (arr->length == 0) 
         return 0;
@@ -246,6 +251,7 @@ int remove_duplicates_sorted_array(const Array* arr, int output[]) {
     return outIndex;
 }
 
+// Requires the input array 'arr' to be sorted.
 int sum_2_pointer(Array* arr, int target, int *left_ptr, int *right_ptr) {
     *left_ptr = 0;
     *right_ptr = arr->length - 1;
@@ -268,7 +274,7 @@ int sum_2_pointer(Array* arr, int target, int *left_ptr, int *right_ptr) {
 int brute_force_subarray_sum(Array* arr, int w) {
     int maxx = -1;
     int curr_sum = 0;
-    for(int i = 0; i < (arr->length - w + 1); i++) {
+    for(int i = 0; i < (arr->length - w+1); i++) {
         curr_sum = 0;
         for(int j = i; j <= (i + w - 1); j++) {
             curr_sum = curr_sum + arr->A[j];
@@ -488,4 +494,3 @@ int main() {
 
     return 0;
 }
-

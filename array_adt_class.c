@@ -268,7 +268,7 @@ int sum_2_pointer(Array* arr, int target, int *left_ptr, int *right_ptr) {
 int brute_force_subarray_sum(Array* arr, int w) {
     int maxx = -1;
     int curr_sum = 0;
-    for(int i = 0; i<= (arr->length - w); i++) {
+    for(int i = 0; i < (arr->length - w + 1); i++) {
         curr_sum = 0;
         for(int j = i; j <= (i + w - 1); j++) {
             curr_sum = curr_sum + arr->A[j];

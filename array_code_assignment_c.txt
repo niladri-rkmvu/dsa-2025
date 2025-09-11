@@ -1,0 +1,112 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    int *A;
+    int size;
+    int length;
+} Array;
+
+Array* createArray(int size, int* initialElements, int initLength) {
+    // write your code
+}
+
+void destroyArray(Array* arr) {
+    // write your code
+}
+
+void display(const Array* arr, const char* msg) {
+    // write your code
+}
+
+// Insert — Best O(1), Worst O(n)
+void Insert(Array* arr, int index, int element) {
+    // write your code
+}
+
+// Delete — Best O(1), Worst O(n)
+void Delete(Array* arr,int index) {
+    // write your code
+}
+
+void swap(int* x, int* y) {
+    // write your code
+}
+
+int LinearSearch_T(Array* arr, int key) {
+    // write your code
+}
+
+int LinearSearch_MVH(Array* arr, int key) {
+    // write your code
+}
+
+int BinarySearch_iter(const Array* arr, int key) {
+    // write your code
+}
+
+int BinarySearch_Recursive(const Array* arr, int l, int h, int key) {
+    // write your code
+}
+
+int sum(const Array* arr) {
+   // write your code
+}
+
+int Rsum_Helper(const int* A, int index) {
+   // write your code
+}
+
+int Rsum(const Array* arr) {
+   // write your code
+}
+
+int Get(const Array* arr, int index) {
+    // write your code
+}
+
+void Set(Array* arr, int index, int element) {
+    // write your code
+}
+
+int min(const Array* arr){
+    // write your code
+}
+
+int max(const Array* arr){
+    // write your code
+}
+
+int Rmax(const Array* arr){
+    // write your code
+    // this is recurive max
+}
+
+int remove_duplicates_sorted_array(const Array* arr, int output[]) {
+    // write your code
+    // output is a reference here. You need to use it in the calling part as well.
+}
+
+int sum_2_pointer(Array* arr, int target, int *left_ptr, int *right_ptr) {
+    // write your code
+}
+
+// O(n^2) time complexity
+// O(1) space complexity
+int brute_force_subarray_sum(Array* arr, int w) {
+    // write your code
+}
+
+// O(n) time complexity
+// O(1) space complexity
+int sliding_window_subarray_sum(Array* arr, int w) {
+    // write your code
+}
+
+int main() {
+    int init[] = {10, 20, 30, 40, 50, 60, 70, 80, 90};
+    // write your code
+    // Test your code
+    destroyArray(arr);
+    return 0;
+}

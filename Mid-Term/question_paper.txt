@@ -1,0 +1,26 @@
+Mid-term
+
+Section: A [ 10 x 2 marks each = 20 marks ]
+
+1. What is a compiled language and interpreted language. Give examples. What are their postives and negatives?
+2. What is a bit and byte? How many numbers can be reporesented in a byte? Assuming you are dealing with unsigned integer. Draw a diagram to illustrate how int A[1] = 2 will be stored in the memory.
+
+
+Section: B [ 5 x 4 marks each = 20 marks ]
+1. What are the different type of Data structures? Give examples. Also illustrate the pros and cons of their design.
+Ans
+a. Data arrangement 
+	- Linear : arrays, queues, linked lists
+	- Non Linear : tree, graph
+
+b. memory allocation
+	- static : memory is ascertained during compile time. 
+		arrays
+	- dynamic : memory is ascertained during run time
+		linked list
+
+c. Physical and Logical DS
+
+
+
+Section: C [ 2 x 10 marks each = 20 marks ]

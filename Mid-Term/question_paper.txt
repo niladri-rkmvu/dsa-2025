@@ -2,25 +2,54 @@ Mid-term
 
 Section: A [ 10 x 2 marks each = 20 marks ]
 
-1. What is a compiled language and interpreted language. Give examples. What are their postives and negatives?
-2. What is a bit and byte? How many numbers can be reporesented in a byte? Assuming you are dealing with unsigned integer. Draw a diagram to illustrate how int A[1] = 2 will be stored in the memory.
+1. What are the key differences between a compiled language and an interpreted language? Provide an example for each type and discuss the main advantages and disadvantages of both.
 
+2. Define a bit and a byte. If a computer uses 8-bit bytes, how many unique unsigned integer values can a single byte store? Using a diagram, illustrate how the value 2 would be stored in a byte of memory. Assume int consumes 2 bytes in your computer.
+
+3. Write down the characteristics of an algorithm.
+
+4. Arrange the functions in ascending order of their time - 2^n, n!, n^logn 
+
+5. What is Big \Theta notation (provide diagram). Give an example.
+
+6. Explain the Addition property of Big O notation and provide the proof of the same.
+
+7. Find the Time complexity of the loop : for (i=n; i>= 5; i = sqrt(i))
 
 Section: B [ 5 x 4 marks each = 20 marks ]
-1. What are the different type of Data structures? Give examples. Also illustrate the pros and cons of their design.
-Ans
-a. Data arrangement 
-	- Linear : arrays, queues, linked lists
-	- Non Linear : tree, graph
 
-b. memory allocation
-	- static : memory is ascertained during compile time. 
-		arrays
-	- dynamic : memory is ascertained during run time
-		linked list
+1. What are the different type of Data structures? Give examples for each type. Also illustrate the positives and negatives of their respective design if applicable.
 
-c. Physical and Logical DS
+2. Implement Stack ADT using list. Write the algorithms for - constructor, push, pop, peek, size, is_empty. You may choose either Python or C code syntax.
+
+3. Imagine you have a singly linked list. You need to write an algorithm to find the middle node. 
+Note
+- you cannot use length/size of the linked list in your design. Use the following as reference for your design.
+- tail pointer points to None
+10 (head) -> 20 -> 30 -> 40 -> 50 (tail) (number of nodes = odd, middle node = 30)
+10 (head) -> 20 -> 30 -> 40 -> 50 -> 60 (tail) (number of nodes = even, middle node = 40)
+
+4. Write algorithm to reverse a singly linked list.
+Original linked list (Assume the original Linked List is already there to begin with)
+10 (head) -> 20 -> 30 -> 40 -> 50 (tail) -> None
+
+Reversed linked list
+10 (tail) <- 20 <- 30 <- 40 <- 50 (head)
+Note : tail pointer points to None
+
 
 
 
 Section: C [ 2 x 10 marks each = 20 marks ]
+
+1. Illustrate the Tower of Hanoi problem for n=1, 2, and 3 disks, showing the sequence of moves required to transfer all disks from a source peg to a destination peg.
+
+Write a recursive algorithm to solve the Tower of Hanoi problem. Justify the derivation of your algorithm by explaining the principle behind breaking down the problem into smaller, similar sub-problems.
+
+Determine the time complexity of the algorithm you have written. Provide a detailed explanation for why the Tower of Hanoi problem is often considered "unsolvable" for a large number of disks, even though a solution exists.
+
+2. Let say you have an array of integers. You have key = 5. Use the key where it is applicable.
+int A[15] = {5,12,1,9,3,14,6,8,0,10,2,11,4,13,7}
+
+i.  Write binary search algorithm - iterative and recursive. Ensure you show the steps starting with the array and prepare the table that shows the progression of the algorithm. Derive the time complexity. 
+ii. Derive the average time for successful and unsuccessful search.

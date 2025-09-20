@@ -1,0 +1,66 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,lastpage}
+\usepackage{enumerate}
+\usepackage{listings}
+\lstset{upquote=true,basicstyle=\fontencoding{T1}\selectfont}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{lastpage} % For \pageref{LastPage}
+
+\usepackage[
+top=1.3cm,
+bottom=1.35cm,
+left=1.0cm,
+right=1.2cm
+]{geometry}
+
+\lstset{
+language=C,
+mathescape=true,
+}
+
+\lstset{ %
+basicstyle=\ttfamily,
+keywordstyle=\bfseries,
+upquote=false,
+showspaces=false,
+showstringspaces=false,
+columns=fullflexible
+}
+
+\CorrectChoiceEmphasis{}
+
+\usepackage[randomize]{exam-randomizechoices}
+
+\hyphenpenalty 10000
+
+\pagestyle{plain}
+
+\pagestyle{headandfoot}
+\setlength{\footskip}{10pt} % Brings footer closer to text
+\footer{\footnotesize \centerline{ Page \thepage\ of \numpages}}
+{}
+{\iflastpage{\footnotesize End of exam}{}}
+
+\renewcommand{\thechoice}{\alph{choice}}
+
+\sloppy
+
+\def\ans{\tikz\fill[scale=0.5](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+
+\usepackage{xspace}
+
+\newcommand{\prob}{\ensuremath{\operatorname{\mathrm{Pr}}}\xspace}
+\begin{document}
+
+\input{2025-DSAI-header}
+\input{2025-DSA-mid-term-questions}
+
+\end{document}

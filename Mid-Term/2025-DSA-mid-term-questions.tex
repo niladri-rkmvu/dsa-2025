@@ -1,0 +1,203 @@
+\linespread{1.1}
+
+% moderately liberal vertical spacing
+\setlist[enumerate]{itemsep=0.6em,parsep=0pt,topsep=0pt}
+\setlist[itemize]{itemsep=0pt,parsep=0pt,topsep=0pt}
+
+% configure Verbatim to use uniform monospaced font
+\fvset{fontfamily=tt,fontsize=\small,gobble=4}
+
+\newcommand{\rmd}{\mathsf{d}}
+
+% Custom section heading with right-aligned marks scheme
+\newcommand{\sectionwithmarks}[2]{%
+  \noindent\makebox[\textwidth][s]{\textbf{#1} \hfill \textbf{[#2]}}\\
+  \noindent\rule{\textwidth}{0.4pt}%
+}
+
+\vspace{1em} % Adds a blank line before Section A
+% -------------------------------
+% Section A
+% -------------------------------
+\sectionwithmarks{Section A}{10 questions × 2 marks = 20 marks}
+
+\begin{enumerate}[label=\arabic*. , leftmargin=*]
+
+% -------------------------------
+% Section A | Q.1 | 2 marks
+% -------------------------------
+\item What are the key differences between a compiled language and an interpreted language?  
+Provide an example for each and discuss their advantages and disadvantages.
+
+% -------------------------------
+% Section A | Q.2 | 2 marks
+% -------------------------------
+\item Define a bit and a byte.  
+If a computer uses 8-bit bytes, how many unique unsigned integer values can a single byte store?  
+Using a diagram, illustrate how the value 7 would be stored in a byte of memory. Assume \texttt{int} consumes 2 bytes.
+
+% -------------------------------
+% Section A | Q.3 | 2 marks
+% -------------------------------
+\item Write down the characteristics of an algorithm.
+
+% -------------------------------
+% Section A | Q.4 | 2 marks
+% -------------------------------
+\item Arrange the functions in ascending order of their time complexity: \(2^n,\ n!,\ n^{\log n}\)
+
+% -------------------------------
+% Section A | Q.5 | 2 marks
+% -------------------------------
+\item What is Big \(\Theta\) notation? Provide a diagram and an example.
+
+% -------------------------------
+% Section A | Q.6 | 2 marks
+% -------------------------------
+\item Explain the Addition property of Big O notation and provide a proof.
+
+% -------------------------------
+% Section A | Q.7 | 2 marks
+% -------------------------------
+\item Find the time complexity of the following loop:\\
+\hspace*{2em}\texttt{for (i = n; i >= 5; i = $\sqrt{i}$)}\\
+\hspace*{4em}\texttt{x = x + 1;}
+
+% -------------------------------
+% Section A | Q.8 | 2 marks
+% -------------------------------
+\item Find the time complexity of the following loop:
+\begin{Verbatim}[fontsize=\small,gobble=0]
+    while n > 1 do
+        for i = 1 to n do
+            x = x + 1;
+        end for
+        n = floor(n / 2);
+    end while
+\end{Verbatim}
+
+% -------------------------------
+% Section A | Q.9 | 2 marks
+% -------------------------------
+\item We have an array \texttt{int A[-10..10][-20..20]}.  
+Width of \texttt{int} = 2 bytes. Base Address = 1000.  
+Find the address of \texttt{A[5][6]} in both Row Major Order (RMO) and Column Major Order (CMO).
+
+% -------------------------------
+% Section A | Q.10 | 2 marks
+% -------------------------------
+\item Write the \texttt{pop} functionality of a singly linked list.
+\end{enumerate}
+
+\vspace{1em} % Adds a blank line before Section A
+% -------------------------------
+% Section B
+% -------------------------------
+\sectionwithmarks{Section B}{5 questions × 4 marks = 20 marks}
+\begin{enumerate}[label=\arabic*. , leftmargin=*]
+% -------------------------------
+% Section B | Q.1 | 4 marks
+% -------------------------------
+\item Solve the recurrence relation:
+\[
+T(n)=
+\begin{cases}
+1, & \text{if }n=0,\\
+T\bigl(\tfrac{n}{2}\bigr)+T\bigl(\tfrac{2n}{5}\bigr)+7n, & \text{if }n>0.
+\end{cases}
+\]
+
+% -------------------------------
+% Section B | Q.2 | 4 marks
+% -------------------------------
+\item Consider an array \(A=\{3,8,2,5,7,6,12\}\) of length 7.
+\begin{itemize}
+  \item A subarray is a sequence of consecutive elements in the original array.
+  \item A subarray of size \(w\) contains exactly \(w\) consecutive elements.
+\end{itemize}
+Let \(w=4\). Valid subarrays: \{3,8,2,5\}, \{8,2,5,7\}, \{2,5,7,6\}, \{5,7,6,12\}.  
+Their sums are
+
+
+\[
+3+8+2+5 = 18,\quad
+8+2+5+7 = 22,\quad
+2+5+7+6 = 20,\quad
+5+7+6+12 = 30.
+\]
+
+
+The maximum sum is \(30\).  
+Write an optimal algorithm (time complexity \(<n^2\)) to find the maximum sum of any subarray of size \(w\).
+
+% -------------------------------
+% Section B | Q.3 | 4 marks
+% -------------------------------
+\item Design an algorithm to find the middle node of a singly linked list without using its length.  
+Examples:
+
+\begin{flushleft}
+\noindent\(
+10\;\rightarrow\;20\;\rightarrow\;30\;\rightarrow\;40\;\rightarrow\;50\;\rightarrow\;\texttt{None}
+\)  
+(\textbf{middle = 30})
+
+\noindent\(
+10\;\rightarrow\;20\;\rightarrow\;30\;\rightarrow\;40\;\rightarrow\;50\;\rightarrow\;60\;\rightarrow\;\texttt{None}
+\)  
+(\textbf{middle = 40})
+\end{flushleft}
+
+% -------------------------------
+% Section B | Q.4 | 4 marks
+% -------------------------------
+\item Write an algorithm to reverse a singly linked list.  
+
+\textbf{Original:}
+\begin{flushleft}
+\noindent\(
+10\;\rightarrow\;20\;\rightarrow\;30\;\rightarrow\;40\;\rightarrow\;50\;\rightarrow\;\texttt{None}
+\)
+\end{flushleft}
+
+\textbf{Reversed:}
+\begin{flushleft}
+\noindent\(
+\texttt{None}\;\leftarrow\;10\;\leftarrow\;20\;\leftarrow\;30\;\leftarrow\;40\;\leftarrow\;50
+\)
+\end{flushleft}
+
+% -------------------------------
+% Section B | Q.5 | 4 marks
+% -------------------------------
+\item Write a recursive algorithm to compute \(\sin(x)\) using the series. Show the recursion tree starting with count = 3.
+
+\[
+\sin(x)=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\cdots
+\]
+
+Assume \(x\) in radians; terminate recursion by term count.
+\end{enumerate}
+
+\vspace{2em} % Adds 2 blank lines before Section C
+% -------------------------------
+% Section C
+% -------------------------------
+\sectionwithmarks{Section C}{2 questions × 10 marks = 20 marks}
+% -------------------------------
+% Section C | Q.1 | 10 marks
+% -------------------------------
+\begin{enumerate}[label=\arabic*. , leftmargin=*, itemsep=1em]
+\item Illustrate with diagram the Tower of Hanoi problem for \(n=1,2,3\) disks, showing the sequence of moves.  
+Write a recursive algorithm to illustrate the Tower of Hanoi problem.  
+Determine its time complexity and why it becomes impractical for large \(n\).
+
+% -------------------------------
+% Section C | Q.2 | 10 marks
+% -------------------------------
+\item Let \(\texttt{int A[15]=\{0,1,2,\dots,14\}}\) and key = 5.  
+\begin{enumerate}[label=(\roman*),itemsep=0pt,parsep=0pt]
+  \item Write both iterative and recursive binary search algorithms; show each step in a table.
+  \item Compute average times for successful and unsuccessful search.
+\end{enumerate}
+\end{enumerate}

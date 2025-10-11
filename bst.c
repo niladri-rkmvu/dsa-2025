@@ -52,19 +52,19 @@ void Insert_iter(int key) {
         r->rchild = p;
 }
 
-Node* insert_recursive(Node* t, int key) {
+Node* Insert_recursive(Node *t, int key) {
     if (t == NULL) {
         return createNode(key);
     }
 
     if (key < t->data)
-        t->lchild = insert_recursive(t->lchild, key);
+        t->lchild = Insert_recursive(t->lchild, key);
     else if (key > t->data)
-        t->rchild = insert_recursive(t->rchild, key);
+        t->rchild = Insert_recursive(t->rchild, key);
     else{
         // Duplicate key, do nothing
         printf("Duplicate key\n");
-        return;
+        return NULL;
     }
     return t;
 }
@@ -102,23 +102,31 @@ Node* Search_iter(int key){
 
 // -------------------- Main --------------------
 int main(void) {
-    Insert_iter(10);
-    Insert_iter(5);
-    Insert_iter(20);
-    Insert_iter(8);
-    Insert_iter(30);
+    // Insert_iter(10);
+    // Insert_iter(5);
+    // Insert_iter(20);
+    // Insert_iter(8);
+    // Insert_iter(30);
+
+    Node* temp;
+
+    root = Insert_recursive(root,10);
+    temp = Insert_recursive(root,5);
+    temp = Insert_recursive(root,20);
+    temp = Insert_recursive(root,8);
+    temp = Insert_recursive(root,30);
 
     Inorder(root);
     printf("\n");
     
-    Node* temp;
-    int key = 21;
-    temp = Search_iter(key);
+    // Node* temp;
+    // int key = 21;
+    // temp = Search_iter(key);
     
-    if (temp)
-        printf("element = [%d] is found\n",key);
-    else
-        printf("element = [%d] is not found\n",key);
+    // if (temp)
+    //     printf("element = [%d] is found\n",key);
+    // else
+    //     printf("element = [%d] is not found\n",key);
 
     freeTree(root);
     return 0;

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 void swap(int *a, int *b){
     int temp = *a;
@@ -59,33 +60,61 @@ void selection_sort(int A[], int n)
     }
 }
 
+// used for quick sort
+int partition(int A[], int l, int h) {
+    int pivot = A[l];
+    int i = l;
+    int j = h;
+    while (i < j) {
+        while (i <= h && A[i] <= pivot) i++;
+        while (j >= l && A[j] > pivot) j--;
+        if (i < j) swap(&A[i], &A[j]);
+    }
+    swap(&A[l], &A[j]);
+    return j;
+}
+
+void quick_sort(int A[], int l, int h) {
+    if (l < h) {
+        int j = partition(A, l, h);
+        quick_sort(A, l, j-1);
+        quick_sort(A, j+1, h);
+    }
+}
+
 int main(){
-    int A[] = {64, 34, 25, 12, 22, 11, 90};
+    int A[] = {11,13,7,12,16,9,24,5,10,3};
     int n = sizeof(A)/sizeof(A[0]);
     
     // ------Bubble Sort --------
-    // printf("Unsorted Aay: \n");
+    // printf("Unsorted Array: \n");
     // print_array(A, n);
-    
     // bubble_sort(A, n);
-    
-    // printf("Sorted Aay: \n");
+    // printf("Bubble Sorted Array: \n");
     // print_array(A, n);
     // --------------------------
 
     // ------Insertion Sort -----
-    // printf("Unsorted Aay: \n");
+    // printf("Unsorted Array: \n");
     // print_array(A, n);
     // insertion_sort(A, n);
-    // printf("Sorted Aay: \n");
+    // printf("Insertion Sorted Array: \n");
     // print_array(A, n);
     // --------------------------
 
     // ------Selection Sort -----
-    printf("Unsorted Aay: \n");
+    // printf("Unsorted Array: \n");
+    // print_array(A, n);
+    // selection_sort(A, n);
+    // printf("Selection Sorted Array: \n");
+    // print_array(A, n);
+    // --------------------------
+
+    // ------Quick Sort -----
+    printf("Unsorted Array: \n");
     print_array(A, n);
-    selection_sort(A, n);
-    printf("Sorted Aay: \n");
+    quick_sort(A, 0, n-1);
+    printf("Quick Sorted Array: \n");
     print_array(A, n);
     // --------------------------
     

@@ -82,6 +82,57 @@ void quick_sort(int A[], int l, int h) {
     }
 }
 
+void merge(int A[], int l, int mid, int h)
+{
+    int i = l, j = mid + 1, k = l;
+    int B[h+1];  // temporary array
+
+    while(i <= mid && j <= h)
+    {
+        if(A[i] < A[j])
+            B[k++] = A[i++];
+        else
+            B[k++] = A[j++];
+    }
+
+    // copy remaining elements from left half
+    while(i <= mid)
+        B[k++] = A[i++];
+
+    // copy remaining elements from right half
+    while(j <= h)
+        B[k++] = A[j++];
+
+    // copy back to A
+    for(i = l; i <= h; i++)
+        A[i] = B[i];
+}
+
+void merge_sort_iter(int A[], int n)
+{
+    int p, i, l, mid, h;
+
+    // p = size of subarray to merge
+    for(p = 2; p <= n; p = p * 2)
+    {
+        for(i = 0; i + p - 1 < n; i = i + p)
+        {
+            l = i;
+            h = i + p - 1;
+            mid = (l + h) / 2;
+            merge(A, l, mid, h);
+        }
+    }
+
+    // If array size is odd / not power of 2, merge remaining part
+    if(p/2 < n)
+    {
+        merge(A, 0, (p/2) - 1, n - 1);
+    }
+}
+
+
+
 int main(){
     int A[] = {11,13,7,12,16,9,24,5,10,3};
     int n = sizeof(A)/sizeof(A[0]);
@@ -111,10 +162,18 @@ int main(){
     // --------------------------
 
     // ------Quick Sort -----
+    // printf("Unsorted Array: \n");
+    // print_array(A, n);
+    // quick_sort(A, 0, n-1);
+    // printf("Quick Sorted Array: \n");
+    // print_array(A, n);
+    // --------------------------
+
+    // ------Merge Sort -----
     printf("Unsorted Array: \n");
     print_array(A, n);
-    quick_sort(A, 0, n-1);
-    printf("Quick Sorted Array: \n");
+    merge_sort_iter(A, n);
+    printf("Merge Sorted Array: \n");
     print_array(A, n);
     // --------------------------
     

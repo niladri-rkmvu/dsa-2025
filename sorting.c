@@ -15,6 +15,12 @@ void print_array(int A[], int n){
     printf("\n");
 }
 
+void reset_array(int src[], int dest[], int n) {
+    for (int i = 0; i < n; i++) {
+        dest[i] = src[i];
+    }
+}
+
 // # time complexity: O(n^2); best case: O(n)
 // # space complexity: O(1)
 void bubble_sort(int A[], int n){
@@ -148,46 +154,53 @@ void merge_sort_recursive(int A[], int l, int h)
 }
 
 int main(){
-    int A[] = {11,13,7,12,16,9,24,5,10,3};
-    int n = sizeof(A)/sizeof(A[0]);
+
+    int master[] = {11,13,7,12,16,9,24,5,10,3};
+    int n = sizeof(master)/sizeof(master[0]);
+    printf("Unsorted Array: \n");
+    print_array(master, n);
+
+    int A[n];  // working array
     
     // ------Bubble Sort --------
-    // printf("Unsorted Array: \n");
-    // print_array(A, n);
-    // bubble_sort(A, n);
-    // printf("Bubble Sorted Array: \n");
-    // print_array(A, n);
+    reset_array(master, A, n);
+    bubble_sort(A, n);
+    printf("Bubble Sorted Array: \n");
+    print_array(A, n);
     // --------------------------
 
     // ------Insertion Sort -----
-    // printf("Unsorted Array: \n");
-    // print_array(A, n);
-    // insertion_sort(A, n);
-    // printf("Insertion Sorted Array: \n");
-    // print_array(A, n);
+    reset_array(master, A, n);
+    insertion_sort(A, n);
+    printf("Insertion Sorted Array: \n");
+    print_array(A, n);
     // --------------------------
 
     // ------Selection Sort -----
-    // printf("Unsorted Array: \n");
-    // print_array(A, n);
-    // selection_sort(A, n);
-    // printf("Selection Sorted Array: \n");
-    // print_array(A, n);
+    reset_array(master, A, n);
+    selection_sort(A, n);
+    printf("Selection Sorted Array: \n");
+    print_array(A, n);
     // --------------------------
 
     // ------Quick Sort -----
-    // printf("Unsorted Array: \n");
-    // print_array(A, n);
-    // quick_sort(A, 0, n-1);
-    // printf("Quick Sorted Array: \n");
-    // print_array(A, n);
+    reset_array(master, A, n);
+    quick_sort(A, 0, n-1);
+    printf("Quick Sorted Array: \n");
+    print_array(A, n);
     // --------------------------
 
-    // ------Merge Sort -----
-    printf("Unsorted Array: \n");
-    print_array(A, n);
+    // ------Merge Sort iterative -----
+    reset_array(master, A, n);
     merge_sort_iter(A, n);
-    printf("Merge Sorted Array: \n");
+    printf("Merge Sorted Array Iterative: \n");
+    print_array(A, n);
+    // --------------------------
+
+     // ------Merge Sort recursive -----
+    reset_array(master, A, n);
+    merge_sort_recursive(A, 0, n-1);
+    printf("Merge Sorted Array Recursive: \n");
     print_array(A, n);
     // --------------------------
     

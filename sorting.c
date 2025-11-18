@@ -110,24 +110,24 @@ void merge(int A[], int l, int mid, int h)
 
 void merge_sort_iter(int A[], int n)
 {
-    int p, i, l, mid, h;
+    int p, l, h, mid;
+    int i;
 
-    // p = size of subarray to merge
-    for(p = 2; p <= n; p = p * 2)
+    for(p = 1; p < n; p = p * 2)
     {
-        for(i = 0; i + p - 1 < n; i = i + p)
+        for(i = 0; i < n - p; i = i + 2 * p)
         {
             l = i;
-            h = i + p - 1;
-            mid = (l + h) / 2;
+            mid = l + p - 1;
+            h = l + 2 * p - 1;
+
+            if (h > n - 1)
+            {
+                h = n - 1;
+            }
+
             merge(A, l, mid, h);
         }
-    }
-
-    // If array size is odd / not power of 2, merge remaining part
-    if(p/2 < n)
-    {
-        merge(A, 0, (p/2) - 1, n - 1);
     }
 }
 

@@ -110,7 +110,11 @@ void merge(int A[], int l, int mid, int h)
 
 void merge_sort_iter(int A[], int n)
 {
-    int p, l, h, mid;
+    int p;   // size of each subarray
+    int l;   // low index 
+    int mid; // mid index = l + p - 1
+    int h;   // high index = l + 2 * p - 1
+
     int i;
 
     for(p = 1; p < n; p = p * 2)

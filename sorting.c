@@ -135,7 +135,17 @@ void merge_sort_iter(int A[], int n)
     }
 }
 
-
+void merge_sort_recursive(int A[], int l, int h)
+{
+    int mid;
+    if (l<h)
+    {
+        mid = (l+h)/2;
+        merge_sort_recursive(A,l,mid);
+        merge_sort_recursive(A,mid+1,h);
+        merge(A,l,mid,h);
+    }
+}
 
 int main(){
     int A[] = {11,13,7,12,16,9,24,5,10,3};

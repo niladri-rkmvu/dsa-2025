@@ -153,6 +153,42 @@ void merge_sort_recursive(int A[], int l, int h)
     }
 }
 
+// Utility function to find maximum element in array
+int max_in_array(int A[], int n) {
+    int max = A[0];
+    for (int i = 1; i < n; i++) {
+        if (A[i] > max) {
+            max = A[i];
+        }
+    }
+    return max;
+}
+
+
+void count_sort(int A[], int n) {
+    // Step 1: Find max element using helper
+    int max = max_in_array(A, n);
+
+    // Step 2: Create count array
+    int *count = (int *)calloc(max + 1, sizeof(int));
+
+    // Step 3: Store frequencies
+    for (int i = 0; i < n; i++) {
+        count[A[i]]++;
+    }
+
+    // Step 4: Write back sorted values
+    int i = 0;
+    for (int j = 0; j <= max; j++) {
+        while (count[j] > 0) {
+            A[i++] = j;
+            count[j]--;
+        }
+    }
+    free(count);
+}
+
+
 int main(){
 
     int master[] = {11,13,7,12,16,9,24,5,10,3};
@@ -201,6 +237,13 @@ int main(){
     reset_array(master, A, n);
     merge_sort_recursive(A, 0, n-1);
     printf("Merge Sorted Array Recursive: \n");
+    print_array(A, n);
+    // --------------------------
+
+    // ------Count Sort -----
+    reset_array(master, A, n);
+    count_sort(A, n);
+    printf("Count Sort: \n");
     print_array(A, n);
     // --------------------------
     
